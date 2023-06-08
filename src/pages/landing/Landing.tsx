@@ -1,3 +1,9 @@
+import DefaultLayout from "@/components/layout/DefaultLayout.tsx";
+
 export default function Home() {
-  return <h1>Home</h1>
+  return (
+    <DefaultLayout sidebar={<p>sidebar</p>}>
+      <p>default</p>
+    </DefaultLayout>
+  )
 }

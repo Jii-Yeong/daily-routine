@@ -1,15 +1,26 @@
-import {signInWithGoogle, singOutForSite} from "@/supabase/login.ts";
 import {useRecoilValue} from "recoil";
 import {userProfileSelector} from "@/recoil/user/user-selectors.ts";
+import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx";
+import {signInWithGoogle, singOutForSite} from "@/supabase/login.ts";
 
 export default function UserProfile() {
   const userProfile = useRecoilValue(userProfileSelector)
-
+  const clickSignIn = () => {
+    signInWithGoogle()
+  }
+  const clickSignOut = async () => {
+    await singOutForSite()
+    location.reload()
+  }
   return (
     <>
-      <p>email: {userProfile?.email}</p>
-      <button onClick={signInWithGoogle}>구글 로그인</button>
-      <button onClick={singOutForSite}>구글 로그아웃</button>
+      {userProfile ? (
+          <>
+            <p>email: {userProfile?.email}</p>
+            <DefaultButton text="로그아웃" onClickButton={clickSignOut}/>
+          </>
+        )
+        : <DefaultButton text="로그인" onClickButton={clickSignIn}/>}
     </>
   )
 }

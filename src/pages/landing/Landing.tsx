@@ -1,4 +1,4 @@
-import DefaultLayout from "@/components/layout/DefaultLayout.tsx";
+import DefaultLayout from "@/components/layout/DefaultLayout/DefaultLayout.tsx";
 
 export default function Landing() {
   return (

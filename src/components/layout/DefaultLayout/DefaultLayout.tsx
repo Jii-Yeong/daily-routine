@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 import "./DefaultLayout.scss";
-import DefaultSidebar from "@/components/sidebar/DefaultSidebar.tsx";
+import DefaultSidebar from "@/components/sidebar/DefaultSidebar/DefaultSidebar.tsx";
 
 type DefaultLayoutProps = {
   sidebar: ReactNode

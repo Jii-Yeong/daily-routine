@@ -3,6 +3,9 @@ import supabaseAdmin from "@/supabase/init.ts";
 export const signInWithGoogle = async () => {
   const {error} = await supabaseAdmin.auth.signInWithOAuth({
     provider: "google",
+    options: {
+      redirectTo: import.meta.env.VITE_SUPABASE_REDIRECT_URL
+    }
   })
   if (error) console.log(error)
 }

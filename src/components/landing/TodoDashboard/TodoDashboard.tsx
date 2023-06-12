@@ -1,14 +1,11 @@
 import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoItem.tsx";
-import {TodoItemModel} from "@/model/todo/todo-item.model.ts";
 import TodoInput from "@/components/input/TodoInput/TodoInput.tsx";
 import "./TodoDashboard.scss"
+import {useTodoList} from "@/hooks/todo/useTodoList.ts";
 
-type TodoDashBoardProps = {
-  todoList: TodoItemModel[]
-  setTodoItem: (text: string) => void
-}
+export default function TodoDashboard() {
+  const {todoList, enterTodoItem} = useTodoList()
 
-export default function TodoDashboard({todoList, setTodoItem}: TodoDashBoardProps) {
   return (
     <div className="todo-dash-board">
       <div className="todo-list-container">
@@ -17,8 +14,9 @@ export default function TodoDashboard({todoList, setTodoItem}: TodoDashBoardProp
         })}
       </div>
       <div className="todo-input-container">
-        <TodoInput setTodoItemValue={setTodoItem}/>
+        <TodoInput setTodoItemValue={enterTodoItem}/>
       </div>
     </div>
+
   )
 }

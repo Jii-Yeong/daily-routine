@@ -1,20 +1,31 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {TodoItemModel} from "@/model/todo/todo-item.model.ts";
+import {addTodoItem, getTodoList} from "@/repository/todo/todo-item.repository.ts";
+import {toTodoItemModel} from "@/model/todo/todo-item.dto.ts";
+import {useRecoilValue} from "recoil";
+import {userProfileSelector} from "@/recoil/user/user-selectors.ts";
 
 export const useTodoList = () => {
-  const todoListTemp = [{
-    id: 1,
-    text: "꽃에 물 주기",
-    checked: true,
-  }, {
-    id: 2,
-    text: "강아지 밥 주기",
-    checked: false,
-  }]
 
-  const [todoList, setTodoList] = useState<TodoItemModel[]>(todoListTemp)
+  const [todoList, setTodoList] = useState<TodoItemModel[]>([])
+  const userData = useRecoilValue(userProfileSelector)
 
-  const enterTodoItem = (text: string) => {
+  useEffect(() => {
+    const fetchTodoList = async () => {
+      const userId = userData?.id
+      if (!userId) return
+
+      const data = await getTodoList(userId)
+      if (!data) return
+
+      const parsedData = data.map(item => toTodoItemModel(item))
+      setTodoList(parsedData)
+    }
+    fetchTodoList()
+  }, [])
+
+  const enterTodoItem = async (text: string) => {
+    await addTodoItem(text)
     setTodoList([
       ...todoList,
       {

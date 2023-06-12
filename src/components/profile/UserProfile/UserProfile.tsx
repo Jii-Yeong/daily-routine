@@ -2,6 +2,7 @@ import {useRecoilValue} from "recoil";
 import {userProfileSelector} from "@/recoil/user/user-selectors.ts";
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx";
 import {signInWithGoogle, singOutForSite} from "@/supabase/login.ts";
+import "./UserProfile.scss"
 
 export default function UserProfile() {
   const userProfile = useRecoilValue(userProfileSelector)
@@ -13,7 +14,7 @@ export default function UserProfile() {
     location.reload()
   }
   return (
-    <>
+    <div className="user-profile">
       {userProfile ? (
           <>
             <p>email: {userProfile?.email}</p>
@@ -21,6 +22,6 @@ export default function UserProfile() {
           </>
         )
         : <DefaultButton text="로그인" onClickButton={clickSignIn}/>}
-    </>
+    </div>
   )
 }

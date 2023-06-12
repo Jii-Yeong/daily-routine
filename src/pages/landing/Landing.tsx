@@ -1,12 +1,14 @@
 import DefaultLayout from "@/components/layout/DefaultLayout/DefaultLayout.tsx";
 import TodoDashboard from "@/components/landing/TodoDashboard/TodoDashboard.tsx";
-import {useTodoList} from "@/hooks/todo/useTodoList.ts";
+import {Suspense} from "react";
+import Loading from "@/components/loading/Loading/Loading.tsx";
 
 export default function Landing() {
-  const {todoList, enterTodoItem} = useTodoList()
   return (
     <DefaultLayout>
-      <TodoDashboard todoList={todoList} setTodoItem={enterTodoItem}/>
+      <Suspense fallback={<Loading/>}>
+        <TodoDashboard/>
+      </Suspense>
     </DefaultLayout>
   )
 }

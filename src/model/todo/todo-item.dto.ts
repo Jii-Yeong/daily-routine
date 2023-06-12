@@ -20,7 +20,6 @@ export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
 
 export const toTodoItemReqDto = (todoItem: TodoItemModel): TodoItemReqDto => {
   return {
-    id: todoItem.id,
     todo_text: todoItem.text,
     checked: todoItem.checked
   }

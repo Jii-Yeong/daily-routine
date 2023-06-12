@@ -2,7 +2,7 @@ import supabaseAdmin from "@/supabase/init.ts";
 import {TodoItemDto, TodoItemReqDto} from "@/model/todo/todo-item.dto.ts";
 
 export const getTodoList = async (userId: TodoItemDto["user_id"]) => {
-  const {data} = await supabaseAdmin.from("todo_item").select().eq("user_id", userId).returns<TodoItemDto[]>()
+  const {data} = await supabaseAdmin.from("todo_item").select().eq("user_id", userId).order("created_at").returns<TodoItemDto[]>()
   return data
 }
 

@@ -1,9 +1,11 @@
 .default-button {
   cursor: pointer;
-  border: 1px solid #f0f4f7;
+  border: 1px solid #e9e9ec;
   width: fit-content;
   background-color: #ffffff;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
 }

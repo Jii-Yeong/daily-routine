@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {TodoItemModel} from "@/model/todo/todo-item.model.ts";
-import {addTodoItem, getTodoList} from "@/repository/todo/todo-item.repository.ts";
+import {addTodoItem, getTodoList, updateTodoItem} from "@/repository/todo/todo-item.repository.ts";
 import {toTodoItemModel} from "@/model/todo/todo-item.dto.ts";
 import {useRecoilValue} from "recoil";
 import {userProfileSelector} from "@/recoil/user/user-selectors.ts";
@@ -35,8 +35,16 @@ export const useTodoList = () => {
       }])
   }
 
+  const clickCheckboxButton = async (id: number, checked: boolean) => {
+    const todoItem = {
+      checked
+    }
+    await updateTodoItem(id, todoItem)
+  }
+
   return {
     todoList,
-    enterTodoItem
+    enterTodoItem,
+    clickCheckboxButton
   }
 }

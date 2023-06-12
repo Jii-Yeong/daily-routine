@@ -1,28 +1,26 @@
 import checkImage from "@/assets/images/todo-item/check-image.webp"
 import "./DefaultTodoItem.scss"
 import {useState} from "react";
+import {TodoItemModel} from "@/model/todo/todo-item.model.ts";
 
 type DefaultTodoItemProps = {
-  text: string
-  checked: boolean
+  item: TodoItemModel
+  clickCheckbox: (id: number, checked: boolean) => void
 }
 
-export default function DefaultTodoItem({text, checked}: DefaultTodoItemProps) {
-  const [isChecked, setIsChecked] = useState(checked)
+export default function DefaultTodoItem({item, clickCheckbox}: DefaultTodoItemProps) {
+  const [isChecked, setIsChecked] = useState(item.checked)
 
-  const clickCheckbox = () => {
-    if (isChecked) {
-      setIsChecked(false)
-      return
-    }
-    setIsChecked(true)
+  const handleClickCheckbox = () => {
+    setIsChecked(!isChecked)
+    clickCheckbox(item.id, !isChecked)
   }
   return (
     <div className="default-todo-item">
-      <div className="check-box" onClick={clickCheckbox}>
+      <div className="check-box" onClick={handleClickCheckbox}>
         {isChecked && <img className="check-image" src={checkImage} alt="check-image"/>}
       </div>
-      <p className="todo-text">{text}</p>
+      <p className="todo-text">{item.text}</p>
     </div>
   )
 }

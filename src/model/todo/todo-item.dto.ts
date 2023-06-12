@@ -8,10 +8,20 @@ export type TodoItemDto = {
   created_at: string,
 }
 
+export type TodoItemReqDto = Partial<Pick<TodoItemDto, "todo_text" | "checked">>
+
 export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
   return {
     id: todoItem.id,
     text: todoItem.todo_text,
     checked: todoItem.checked,
+  }
+}
+
+export const toTodoItemReqDto = (todoItem: TodoItemModel): TodoItemReqDto => {
+  return {
+    id: todoItem.id,
+    todo_text: todoItem.text,
+    checked: todoItem.checked
   }
 }

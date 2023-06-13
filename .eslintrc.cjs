@@ -12,7 +12,9 @@ module.exports = {
   },
   plugins: ["react-refresh"],
   rules: {
+    "prettier/prettier": ["error", {"endOfLine": "auto", "printWidth": 80}],
     "react-refresh/only-export-components": "warn",
-    quotes: ["error", "double"]
+    quotes: ["error", "double"],
+    semi: ["error", "never"],
   }
 };

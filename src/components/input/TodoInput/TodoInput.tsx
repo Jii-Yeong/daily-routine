@@ -1,6 +1,7 @@
 import "./TodoInput.scss"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx";
 
 type TodoInputProps = {
   setTodoItemValue: (text: string) => void
@@ -26,7 +27,9 @@ export default function TodoInput({setTodoItemValue}: TodoInputProps) {
   }
   return (
     <div className="todo-input">
-      <input className="input" onChange={changeInput} onKeyUp={enterTodoItem}/>
+      <div className="input-container">
+        <DefaultInput changeInput={changeInput} enterInput={enterTodoItem}/>
+      </div>
       <DefaultButton text="입력" onClickButton={clickTodoItemButton}/>
     </div>
   )

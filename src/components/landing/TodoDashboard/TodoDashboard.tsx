@@ -4,13 +4,14 @@ import "./TodoDashboard.scss"
 import {useTodoList} from "@/hooks/todo/useTodoList.ts";
 
 export default function TodoDashboard() {
-  const {todoList, enterTodoItem, clickCheckboxButton} = useTodoList()
+  const {todoList, enterTodoItem, clickCheckboxButton, clickDeleteButton} = useTodoList()
 
   return (
     <div className="todo-dash-board">
       <div className="todo-list-container">
         {todoList.map(item => {
-          return <DefaultTodoItem item={item} clickCheckbox={clickCheckboxButton} key={item.id}/>
+          return <DefaultTodoItem item={item} clickCheckbox={clickCheckboxButton} clickDelete={clickDeleteButton}
+                                  key={item.id}/>
         })}
       </div>
       <div className="todo-input-container">

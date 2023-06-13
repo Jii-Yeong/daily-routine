@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {TodoItemModel} from "@/model/todo/todo-item.model.ts";
-import {addTodoItem, getTodoList, updateTodoItem} from "@/repository/todo/todo-item.repository.ts";
+import {addTodoItem, deleteTodoItem, getTodoList, updateTodoItem} from "@/repository/todo/todo-item.repository.ts";
 import {toTodoItemModel} from "@/model/todo/todo-item.dto.ts";
 import {useRecoilValue} from "recoil";
 import {userProfileSelector} from "@/recoil/user/user-selectors.ts";
@@ -45,6 +45,16 @@ export const useTodoList = () => {
     await updateTodoItem(id, todoItem)
   }
 
+  const clickDeleteButton = async (id: number) => {
+    if (!userId) {
+      const filteredTodoList = todoList.filter(item => item.id !== id)
+      setTodoList(filteredTodoList)
+      return
+    }
+    await deleteTodoItem(id)
+    await fetchTodoList()
+  }
+
   useEffect(() => {
     fetchTodoList()
   }, [])
@@ -52,6 +62,7 @@ export const useTodoList = () => {
   return {
     todoList,
     enterTodoItem,
-    clickCheckboxButton
+    clickCheckboxButton,
+    clickDeleteButton
   }
 }

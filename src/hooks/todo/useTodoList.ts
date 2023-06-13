@@ -6,19 +6,21 @@ import {
   getTodoList,
   updateTodoItem,
 } from "@/repository/todo/todo-item.repository.ts"
-import { toTodoItemModel } from "@/model/todo/todo-item.dto.ts"
+import { TodoItemReqDto, toTodoItemModel } from "@/model/todo/todo-item.dto.ts"
 import { useRecoilValue } from "recoil"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
+import { useSearchParams } from "react-router-dom"
 
 export const useTodoList = () => {
   const [todoList, setTodoList] = useState<TodoItemModel[]>([])
   const userData = useRecoilValue(userProfileSelector)
   const userId = userData?.id
+  const [searchParams] = useSearchParams()
+  const categoryId = searchParams.get("category_id")
 
   const fetchTodoList = async () => {
     if (!userId) return
-
-    const data = await getTodoList(userId)
+    const data = await getTodoList(userId, categoryId)
     if (!data) return
 
     const parsedData = data.map((item) => toTodoItemModel(item))
@@ -37,7 +39,13 @@ export const useTodoList = () => {
       ])
       return
     }
-    await addTodoItem(text)
+
+    const todoReq: TodoItemReqDto = {
+      todo_text: text,
+      user_id: userId,
+    }
+    if (categoryId) todoReq["category_id"] = Number(categoryId)
+    await addTodoItem(todoReq)
     await fetchTodoList()
   }
 
@@ -78,7 +86,7 @@ export const useTodoList = () => {
 
   useEffect(() => {
     fetchTodoList()
-  }, [])
+  }, [categoryId])
 
   return {
     todoList,

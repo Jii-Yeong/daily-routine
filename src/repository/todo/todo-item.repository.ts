@@ -2,23 +2,23 @@ import supabaseAdmin from "@/supabase/init.ts"
 import { TodoItemDto, TodoItemReqDto } from "@/model/todo/todo-item.dto.ts"
 import { DB_TABLE_NAME } from "@/constants/db-table.constants.ts"
 
-export const getTodoList = async (userId: TodoItemDto["user_id"]) => {
-  const { data } = await supabaseAdmin
+export const getTodoList = async (
+  userId: TodoItemDto["user_id"],
+  categoryId: string | null
+) => {
+  const response = supabaseAdmin
     .from("todo_item")
     .select()
     .eq("user_id", userId)
-    .order("created_at")
-    .returns<TodoItemDto[]>()
+  if (categoryId) {
+    response.eq("category_id", Number(categoryId))
+  }
+  const { data } = await response.order("created_at").returns<TodoItemDto[]>()
   return data
 }
 
-export const addTodoItem = async (text: string) => {
-  const { data } = await supabaseAdmin.auth.getUser()
-  const userId = data.user?.id
-  if (!userId) return
-  await supabaseAdmin
-    .from(DB_TABLE_NAME.todoItem)
-    .insert({ user_id: userId, todo_text: text })
+export const addTodoItem = async (todoReq: TodoItemReqDto) => {
+  await supabaseAdmin.from(DB_TABLE_NAME.todoItem).insert(todoReq)
 }
 
 export const updateTodoItem = async (id: number, todoItem: TodoItemReqDto) => {

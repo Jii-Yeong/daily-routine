@@ -1,14 +1,17 @@
-import {TodoItemModel} from "@/model/todo/todo-item.model.ts";
+import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
 
 export type TodoItemDto = {
-  id: number,
-  user_id: string,
-  todo_text: string,
-  checked: boolean,
-  created_at: string,
+  id: number
+  user_id: string
+  todo_text: string
+  checked: boolean
+  created_at: string
+  category_id: number
 }
 
-export type TodoItemReqDto = Partial<Pick<TodoItemDto, "todo_text" | "checked">>
+export type TodoItemReqDto = Partial<
+  Pick<TodoItemDto, "user_id" | "todo_text" | "checked" | "category_id">
+>
 
 export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
   return {
@@ -21,6 +24,6 @@ export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
 export const toTodoItemReqDto = (todoItem: TodoItemModel): TodoItemReqDto => {
   return {
     todo_text: todoItem.text,
-    checked: todoItem.checked
+    checked: todoItem.checked,
   }
 }

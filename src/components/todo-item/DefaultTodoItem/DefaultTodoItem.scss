@@ -1,24 +1,35 @@
 .default-todo-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: 1px solid #e9e9ec;
   padding: 8px;
   border-radius: 8px;
-  column-gap: 8px;
 
-  .check-box {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    border: 1px solid #e9e9ec;
-    border-radius: 4px;
+  .todo-item {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
 
-    .check-image {
+    .check-box {
       width: 16px;
+      height: 16px;
+      cursor: pointer;
+      border: 1px solid #e9e9ec;
+      border-radius: 4px;
+
+      .check-image {
+        width: 16px;
+      }
+    }
+
+    .todo-text {
+      font-size: 14px;
     }
   }
 
-  .todo-text {
-    font-size: 14px;
+  .control-todo-item {
+    display: flex;
+    column-gap: 8px;
   }
 }

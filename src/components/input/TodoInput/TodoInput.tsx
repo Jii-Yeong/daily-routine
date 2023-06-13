@@ -7,12 +7,14 @@ type TodoInputProps = {
   setTodoItemValue: (text: string) => void;
   defaultInputValue?: string;
   buttonText: string;
+  buttonFontSize?: string | number;
 };
 
 export default function TodoInput({
   setTodoItemValue,
   defaultInputValue = "",
   buttonText,
+  buttonFontSize,
 }: TodoInputProps) {
   const [inputText, setInputText] = useState(defaultInputValue)
 
@@ -39,7 +41,11 @@ export default function TodoInput({
           inputValue={inputText}
         />
       </div>
-      <DefaultButton text={buttonText} onClickButton={clickTodoItemButton} />
+      <DefaultButton
+        text={buttonText}
+        onClickButton={clickTodoItemButton}
+        fontSize={buttonFontSize}
+      />
     </div>
   )
 }

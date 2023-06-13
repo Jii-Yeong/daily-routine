@@ -60,9 +60,14 @@ export default function DefaultTodoItem({
               setTodoItemValue={handleEditValue}
               buttonText="수정"
               defaultInputValue={item.text}
+              buttonFontSize={12}
             />
           </div>
-          <DefaultButton text="취소" onClickButton={handleCancelEdit} />
+          <DefaultButton
+            text="취소"
+            onClickButton={handleCancelEdit}
+            fontSize={12}
+          />
         </div>
       )}
       {!isClickEdit && (

@@ -1,14 +1,20 @@
 import "./TodoInput.scss"
-import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx";
-import {ChangeEvent, KeyboardEvent, useState} from "react";
-import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx";
+import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
+import { ChangeEvent, KeyboardEvent, useState } from "react"
+import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx"
 
 type TodoInputProps = {
-  setTodoItemValue: (text: string) => void
-}
+  setTodoItemValue: (text: string) => void;
+  defaultInputValue?: string;
+  buttonText: string;
+};
 
-export default function TodoInput({setTodoItemValue}: TodoInputProps) {
-  const [inputText, setInputText] = useState("")
+export default function TodoInput({
+  setTodoItemValue,
+  defaultInputValue = "",
+  buttonText,
+}: TodoInputProps) {
+  const [inputText, setInputText] = useState(defaultInputValue)
 
   const changeInput = (e: ChangeEvent) => {
     const element = e.target as HTMLInputElement
@@ -23,14 +29,17 @@ export default function TodoInput({setTodoItemValue}: TodoInputProps) {
     if (e.code === "Enter") {
       setTodoItemValue(inputText)
     }
-
   }
   return (
     <div className="todo-input">
       <div className="input-container">
-        <DefaultInput changeInput={changeInput} enterInput={enterTodoItem}/>
+        <DefaultInput
+          changeInput={changeInput}
+          enterInput={enterTodoItem}
+          inputValue={inputText}
+        />
       </div>
-      <DefaultButton text="입력" onClickButton={clickTodoItemButton}/>
+      <DefaultButton text={buttonText} onClickButton={clickTodoItemButton} />
     </div>
   )
 }

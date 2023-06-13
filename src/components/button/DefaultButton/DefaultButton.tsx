@@ -2,12 +2,12 @@ import "./DefaultButton.scss"
 import { parseDomSizeValue } from "@/utils/string.utils.ts"
 
 type DefaultButtonProps = {
-  text: string;
-  onClickButton: () => void;
-  padding?: string | number;
-  color?: string;
-  fontSize?: string | number;
-};
+  text: string
+  onClickButton: () => void
+  padding?: string | number
+  color?: string
+  fontSize?: string | number
+}
 
 export default function DefaultButton({
   text,

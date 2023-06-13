@@ -4,11 +4,11 @@ import { ChangeEvent, KeyboardEvent, useState } from "react"
 import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx"
 
 type TodoInputProps = {
-  setTodoItemValue: (text: string) => void;
-  defaultInputValue?: string;
-  buttonText: string;
-  buttonFontSize?: string | number;
-};
+  setTodoItemValue: (text: string) => void
+  defaultInputValue?: string
+  buttonText: string
+  buttonFontSize?: string | number
+}
 
 export default function TodoInput({
   setTodoItemValue,

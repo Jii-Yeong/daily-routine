@@ -61,6 +61,14 @@ export const useTodoList = () => {
   }
 
   const editTodoItemValue = async (id: number, text: string) => {
+    if (!userId) {
+      const filteredTodoList = todoList.map((item) => {
+        if (item.id === id) item.text = text
+        return item
+      })
+      setTodoList(filteredTodoList)
+      return
+    }
     const todoItem = {
       todo_text: text,
     }

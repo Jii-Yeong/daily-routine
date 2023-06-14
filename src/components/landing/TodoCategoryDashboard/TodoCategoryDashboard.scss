@@ -1,0 +1,18 @@
+.todo-category-dashboard {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    
+    .catetory-list {
+        .category-item {
+            height: 35px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            &:hover {
+                background-color: #eeeded;
+            }
+        }
+    }
+}

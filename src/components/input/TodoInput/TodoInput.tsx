@@ -9,7 +9,7 @@ type TodoInputProps = {
   buttonText: string
   buttonFontSize?: string | number
 }
-   
+
 export default function TodoInput({
   setTodoItemValue,
   defaultInputValue = "",

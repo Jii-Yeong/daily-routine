@@ -1,23 +1,19 @@
 import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx"
 import { ChangeEvent, KeyboardEvent, useState } from "react"
+import "./CategoryInput.scss"
+import TodoInput from "../TodoInput/TodoInput"
+import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
+import MuIcon from "@/components/icon/MuIcon"
 
 type CategoryInput = {
   setCategoryValue: (name: string) => void
 }
 
 export default function CategoryInput({ setCategoryValue }: CategoryInput) {
-  const [inputText, setInputText] = useState("")
   const [isClick, setIsClick] = useState(false)
 
-  const handleChangeInput = (e: ChangeEvent) => {
-    const element = e.target as HTMLInputElement
-    setInputText(element.value)
-  }
-  const handleEnterInput = (e: KeyboardEvent) => {
-    const element = e.target as HTMLInputElement
-    if (e.code === "Enter") {
-      setCategoryValue(element.value)
-    }
+  const handleClickCancelButton = () => {
+    setIsClick(false)
   }
 
   const handleClickAddButton = () => {
@@ -26,13 +22,15 @@ export default function CategoryInput({ setCategoryValue }: CategoryInput) {
   return (
     <div className="category-input">
       {isClick ? (
-        <DefaultInput
-          changeInput={handleChangeInput}
-          enterInput={handleEnterInput}
-          inputValue={inputText}
-        />
+        <div className="default-input">
+          <div className="todo-input-wrapper">
+            <TodoInput buttonText="추가" setTodoItemValue={setCategoryValue} />
+          </div>
+          <DefaultButton text="취소" onClickButton={handleClickCancelButton} />
+        </div>
       ) : (
         <div className="add-category-text" onClick={handleClickAddButton}>
+          <MuIcon icon="add" size={20} />
           <p className="text">카테고리 추가</p>
         </div>
       )}

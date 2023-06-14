@@ -3,11 +3,12 @@ import { useTodoCategory } from "@/hooks/useTodoCategory.ts"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { getRootPage } from "@/utils/page.utils.ts"
+import "./TodoCategoryDashboard.scss"
 
 export default function TodoCategoryDashboard() {
   const { category, addTodoCategory } = useTodoCategory()
   const [_, setSearchParams] = useSearchParams()
-  const navitage = useNavigate()
+  const navigate = useNavigate()
   const handleCategoryValue = (text: string) => {
     addTodoCategory(text)
   }
@@ -17,7 +18,7 @@ export default function TodoCategoryDashboard() {
   }
 
   const handleClickAllCategory = () => {
-    navitage(getRootPage())
+    navigate(getRootPage())
   }
 
   return (

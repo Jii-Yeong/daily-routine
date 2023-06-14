@@ -14,7 +14,7 @@ export const getTodoList = async (
     response.eq("category_id", Number(categoryId))
   }
   const { data } = await response.order("created_at").returns<TodoItemDto[]>()
-  return data
+  return data || []
 }
 
 export const addTodoItem = async (todoReq: TodoItemReqDto) => {

@@ -1,6 +1,5 @@
-import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx"
-import { ChangeEvent, KeyboardEvent, useState } from "react"
-import "./CategoryInput.scss"
+import { useState } from "react"
+import "./CategoryInput.scoped.scss"
 import TodoInput from "../TodoInput/TodoInput"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
 import MuIcon from "@/components/icon/MuIcon"

@@ -1,11 +1,11 @@
 import { ChangeEvent, KeyboardEvent } from "react"
-import "./DefaultInput.scss"
+import "./DefaultInput.scoped.scss"
 
 type DefaultInputProps = {
-  changeInput: (e: ChangeEvent) => void;
-  enterInput: (e: KeyboardEvent) => void;
-  inputValue?: string;
-};
+  changeInput: (e: ChangeEvent) => void
+  enterInput: (e: KeyboardEvent) => void
+  inputValue?: string
+}
 export default function DefaultInput({
   changeInput,
   enterInput,

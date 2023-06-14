@@ -1,15 +1,16 @@
-import {defineConfig} from "vite"
+import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import path from "path"
-// https://vitejs.dev/config/
+import { reactScopedCssPlugin } from "rollup-plugin-react-scoped-css"
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), reactScopedCssPlugin()],
   resolve: {
     alias: [
       {
         find: "@",
-        replacement: path.resolve(__dirname, "src")
-      }
-    ]
-  }
+        replacement: path.resolve(__dirname, "src"),
+      },
+    ],
+  },
 })

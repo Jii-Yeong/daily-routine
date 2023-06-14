@@ -11,6 +11,11 @@ import {
   initTodoCategory,
 } from "@/model/todo/todo-category.model.ts"
 import { useSearchParams } from "react-router-dom"
+import {
+  addTodoCategoryService,
+  getTodoCategoryListService,
+  getTodoCategoryService,
+} from "@/service/todo/todo-category.service"
 
 export const useTodoCategory = () => {
   const user = useRecoilValue(userProfileSelector)
@@ -23,7 +28,7 @@ export const useTodoCategory = () => {
 
   const fetchTodoCategoryList = useCallback(async () => {
     if (!userId) return
-    const data = await selectTodoCategoryList(userId)
+    const data = await getTodoCategoryListService(userId)
     if (!data) return
     setCategoryList(data)
   }, [userId])
@@ -33,7 +38,7 @@ export const useTodoCategory = () => {
       setCategory(initTodoCategory())
       return
     }
-    const data = await selectTodoCategory(Number(categoryId))
+    const data = await getTodoCategoryService(Number(categoryId))
     if (!data) return
     setCategory(data)
   }, [categoryId])
@@ -45,7 +50,7 @@ export const useTodoCategory = () => {
       user_id: userId,
       name,
     }
-    await insertTodoCategory(category)
+    await addTodoCategoryService(category)
     await fetchTodoCategoryList()
   }
 

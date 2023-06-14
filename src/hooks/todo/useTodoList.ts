@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
-import {
-  addTodoItem,
-  deleteTodoItem,
-  getTodoList,
-  updateTodoItem,
-} from "@/repository/todo/todo-item.repository.ts"
-import { TodoItemReqDto, toTodoItemModel } from "@/model/todo/todo-item.dto.ts"
 import { useRecoilValue } from "recoil"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import { useSearchParams } from "react-router-dom"
+import {
+  addTodoListSerivce,
+  deleteTodoItemService,
+  getTodoListService,
+  updateTodoItemService,
+} from "@/service/todo/todo-item.service"
 
 export const useTodoList = () => {
   const [todoList, setTodoList] = useState<TodoItemModel[]>([])
@@ -17,15 +16,11 @@ export const useTodoList = () => {
   const userId = userData?.id
   const [searchParams] = useSearchParams()
   const categoryId = searchParams.get("category_id")
-
-  const fetchTodoList = async () => {
+  const fetchTodoList = useCallback(async () => {
     if (!userId) return
-    const data = await getTodoList(userId, categoryId)
-    if (!data) return
-
-    const parsedData = data.map((item) => toTodoItemModel(item))
-    setTodoList(parsedData)
-  }
+    const data = await getTodoListService(userId, categoryId)
+    setTodoList(data)
+  }, [userId, categoryId])
 
   const enterTodoItem = async (text: string) => {
     if (!userId) {
@@ -39,13 +34,7 @@ export const useTodoList = () => {
       ])
       return
     }
-
-    const todoReq: TodoItemReqDto = {
-      todo_text: text,
-      user_id: userId,
-    }
-    if (categoryId) todoReq["category_id"] = Number(categoryId)
-    await addTodoItem(todoReq)
+    await addTodoListSerivce(text, userId, categoryId)
     await fetchTodoList()
   }
 
@@ -55,7 +44,7 @@ export const useTodoList = () => {
     const todoItem = {
       checked,
     }
-    await updateTodoItem(id, todoItem)
+    await updateTodoItemService(id, todoItem)
   }
 
   const clickDeleteButton = async (id: number) => {
@@ -64,7 +53,7 @@ export const useTodoList = () => {
       setTodoList(filteredTodoList)
       return
     }
-    await deleteTodoItem(id)
+    await deleteTodoItemService(id)
     await fetchTodoList()
   }
 
@@ -80,13 +69,13 @@ export const useTodoList = () => {
     const todoItem = {
       todo_text: text,
     }
-    await updateTodoItem(id, todoItem)
+    await updateTodoItemService(id, todoItem)
     await fetchTodoList()
   }
 
   useEffect(() => {
     fetchTodoList()
-  }, [categoryId])
+  }, [fetchTodoList])
 
   return {
     todoList,

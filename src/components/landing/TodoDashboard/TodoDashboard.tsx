@@ -2,6 +2,7 @@ import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoI
 import TodoInput from "@/components/input/TodoInput/TodoInput.tsx"
 import "./TodoDashboard.scss"
 import { useTodoList } from "@/hooks/todo/useTodoList.ts"
+import { useTodoCategory } from "@/hooks/useTodoCategory"
 
 export default function TodoDashboard() {
   const {
@@ -11,9 +12,11 @@ export default function TodoDashboard() {
     clickDeleteButton,
     editTodoItemValue,
   } = useTodoList()
+  const { category } = useTodoCategory()
 
   return (
     <div className="todo-dash-board">
+      <p>{category?.name}</p>
       <div className="todo-list-container">
         {todoList.map((item) => {
           return (

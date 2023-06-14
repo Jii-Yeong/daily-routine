@@ -6,7 +6,7 @@ import { getRootPage } from "@/utils/page.utils.ts"
 import "./TodoCategoryDashboard.scss"
 
 export default function TodoCategoryDashboard() {
-  const { category, addTodoCategory } = useTodoCategory()
+  const { categoryList, addTodoCategory } = useTodoCategory()
   const [_, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
   const handleCategoryValue = (text: string) => {
@@ -27,7 +27,7 @@ export default function TodoCategoryDashboard() {
         <li className="category-item" onClick={handleClickAllCategory}>
           전체
         </li>
-        {category.map((item) => {
+        {categoryList.map((item) => {
           return (
             <li
               className="category-item"

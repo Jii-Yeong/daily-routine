@@ -1,5 +1,6 @@
-import type {Preview} from "@storybook/react";
-import "@/style/reset.css"
+import "@/style/material-icon.scss";
+import "@/style/reset.css";
+import type { Preview } from "@storybook/react";
 
 const preview: Preview = {
   parameters: {

@@ -1,5 +1,5 @@
-import "./DefaultButton.scss"
 import { parseDomSizeValue } from "@/utils/string.utils.ts"
+import "./DefaultButton.scoped.scss"
 
 type DefaultButtonProps = {
   text: string

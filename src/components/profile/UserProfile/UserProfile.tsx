@@ -1,8 +1,8 @@
-import { useRecoilValue } from "recoil"
-import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
+import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import { signInWithGoogle, singOutForSite } from "@/supabase/login.ts"
-import "./UserProfile.scss"
+import { useRecoilValue } from "recoil"
+import "./UserProfile.scoped.scss"
 
 export default function UserProfile() {
   const userProfile = useRecoilValue(userProfileSelector)

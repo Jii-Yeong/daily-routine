@@ -1,7 +1,7 @@
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx"
 import { ChangeEvent, KeyboardEvent, useState } from "react"
-import "./TodoInput.scss"
+import "./TodoInput.scoped.scss"
 
 type TodoInputProps = {
   setTodoItemValue: (text: string) => void

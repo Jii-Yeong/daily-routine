@@ -5,7 +5,7 @@ import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { getRootPage } from "@/utils/page.utils.ts"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import "./TodoCategoryDashboard.scss"
+import "./TodoCategoryDashboard.scoped.scss"
 
 export default function TodoCategoryDashboard() {
   const { categoryList, clickAddTodoCategory, clickDeleteTodoCategory } =

@@ -1,17 +1,17 @@
 import checkImage from "@/assets/images/todo-item/check-image.webp"
-import "./DefaultTodoItem.scss"
-import { useState } from "react"
-import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
+import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import MuIcon from "@/components/icon/MuIcon.tsx"
 import TodoInput from "@/components/input/TodoInput/TodoInput.tsx"
-import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
+import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
+import { useState } from "react"
+import "./DefaultTodoItem.scoped.scss"
 
 type DefaultTodoItemProps = {
-  item: TodoItemModel;
-  clickCheckbox: (id: number, checked: boolean) => void;
-  editTodoItem: (id: number, text: string) => void;
-  clickDelete: (id: number) => void;
-};
+  item: TodoItemModel
+  clickCheckbox: (id: number, checked: boolean) => void
+  editTodoItem: (id: number, text: string) => void
+  clickDelete: (id: number) => void
+}
 
 export default function DefaultTodoItem({
   item,

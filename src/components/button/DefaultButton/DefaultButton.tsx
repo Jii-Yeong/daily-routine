@@ -6,6 +6,7 @@ type DefaultButtonProps = {
   onClickButton: () => void
   padding?: string | number
   color?: string
+  backgroundColor?: string
   fontSize?: string | number
 }
 
@@ -14,11 +15,13 @@ export default function DefaultButton({
   onClickButton,
   padding = "4px 8px",
   color,
+  backgroundColor,
   fontSize = 14,
 }: DefaultButtonProps) {
   const buttonStyle = {
     padding: parseDomSizeValue(padding),
     color: color,
+    backgroundColor: backgroundColor,
     fontSize: parseDomSizeValue(fontSize),
   }
   return (

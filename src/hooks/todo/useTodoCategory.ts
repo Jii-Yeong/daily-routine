@@ -1,23 +1,18 @@
-import { useRecoilValue } from "recoil"
-import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
-import {
-  insertTodoCategory,
-  selectTodoCategory,
-  selectTodoCategoryList,
-} from "@/repository/todo/todo-category.repository.ts"
-import { useCallback, useEffect, useState } from "react"
+import { TodoCategoryDto } from "@/model/todo/todo-category.dto"
 import {
   TodoCategoryModel,
   initTodoCategory,
 } from "@/model/todo/todo-category.model.ts"
-import { useSearchParams } from "react-router-dom"
+import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import {
   clickAddTodoCategoryService,
   deleteTodoCategoryService,
   getTodoCategoryListService,
   getTodoCategoryService,
 } from "@/service/todo/todo-category.service"
-import { TodoCategoryDto } from "@/model/todo/todo-category.dto"
+import { useCallback, useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { useRecoilValue } from "recoil"
 
 export const useTodoCategory = () => {
   const user = useRecoilValue(userProfileSelector)
@@ -56,8 +51,9 @@ export const useTodoCategory = () => {
     await fetchTodoCategoryList()
   }
 
-  const clickDeleteTodoCategory = (id: TodoCategoryDto["id"]) => {
-    deleteTodoCategoryService(id)
+  const clickDeleteTodoCategory = async (id: TodoCategoryDto["id"]) => {
+    await deleteTodoCategoryService(id)
+    await fetchTodoCategoryList()
   }
 
   useEffect(() => {

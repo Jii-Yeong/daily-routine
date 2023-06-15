@@ -1,0 +1,7 @@
+.background-shadow {
+  background-color: #c0c0c05b;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  @include flexCol(center, center);
+}

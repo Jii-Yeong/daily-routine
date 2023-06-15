@@ -1,6 +1,7 @@
 import MuIcon from "@/components/icon/MuIcon"
 import CategoryInput from "@/components/input/CategoryInput/CategoryInput.tsx"
 import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
+import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { getRootPage } from "@/utils/page.utils.ts"
 import { useNavigate, useSearchParams } from "react-router-dom"
@@ -9,6 +10,7 @@ import "./TodoCategoryDashboard.scss"
 export default function TodoCategoryDashboard() {
   const { categoryList, clickAddTodoCategory, clickDeleteTodoCategory } =
     useTodoCategory()
+  const { fetchTodoList } = useTodoList()
   const [_, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
 
@@ -27,6 +29,7 @@ export default function TodoCategoryDashboard() {
   const handleClickDeleteButton = async (id: TodoCategoryModel["id"]) => {
     await clickDeleteTodoCategory(id)
     navigate(getRootPage())
+    await fetchTodoList()
   }
 
   return (

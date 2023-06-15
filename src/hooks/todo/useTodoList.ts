@@ -1,14 +1,14 @@
-import { useCallback, useEffect, useState } from "react"
 import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
-import { useRecoilValue } from "recoil"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
-import { useSearchParams } from "react-router-dom"
 import {
   addTodoListSerivce,
   deleteTodoItemService,
   getTodoListService,
   updateTodoItemService,
 } from "@/service/todo/todo-item.service"
+import { useCallback, useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import { useRecoilValue } from "recoil"
 
 export const useTodoList = () => {
   const [todoList, setTodoList] = useState<TodoItemModel[]>([])
@@ -78,6 +78,7 @@ export const useTodoList = () => {
   }, [fetchTodoList])
 
   return {
+    fetchTodoList,
     todoList,
     enterTodoItem,
     clickCheckboxButton,

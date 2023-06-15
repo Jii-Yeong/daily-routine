@@ -1,16 +1,19 @@
+import MuIcon from "@/components/icon/MuIcon"
 import CategoryInput from "@/components/input/CategoryInput/CategoryInput.tsx"
-import { useTodoCategory } from "@/hooks/useTodoCategory.ts"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { getRootPage } from "@/utils/page.utils.ts"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import "./TodoCategoryDashboard.scss"
 
 export default function TodoCategoryDashboard() {
-  const { categoryList, addTodoCategory } = useTodoCategory()
+  const { categoryList, clickAddTodoCategory, clickDeleteTodoCategory } =
+    useTodoCategory()
   const [_, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
+
   const handleCategoryValue = (text: string) => {
-    addTodoCategory(text)
+    clickAddTodoCategory(text)
   }
 
   const handleClickCategory = (id: TodoCategoryModel["id"]) => {
@@ -18,6 +21,11 @@ export default function TodoCategoryDashboard() {
   }
 
   const handleClickAllCategory = () => {
+    navigate(getRootPage())
+  }
+
+  const handleClickDeleteButton = async (id: TodoCategoryModel["id"]) => {
+    await clickDeleteTodoCategory(id)
     navigate(getRootPage())
   }
 
@@ -35,6 +43,11 @@ export default function TodoCategoryDashboard() {
               onClick={() => handleClickCategory(item.id)}
             >
               {item.name}
+              <MuIcon
+                icon="delete"
+                clickIcon={() => handleClickDeleteButton(item.id)}
+                cursor="pointer"
+              />
             </li>
           )
         })}

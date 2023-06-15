@@ -10,6 +10,7 @@
             cursor: pointer;
             padding: 8px;
             border-radius: 8px;
+            @include flexRow(space-between, center);
             &:hover {
                 background-color: #eeeded;
             }

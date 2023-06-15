@@ -13,4 +13,11 @@ export default defineConfig({
       },
     ],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: "@import '@/style/flex-mixin.scss';",
+      },
+    },
+  },
 })

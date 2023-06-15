@@ -2,7 +2,7 @@ import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoI
 import TodoInput from "@/components/input/TodoInput/TodoInput.tsx"
 import "./TodoDashboard.scss"
 import { useTodoList } from "@/hooks/todo/useTodoList.ts"
-import { useTodoCategory } from "@/hooks/useTodoCategory"
+import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 
 export default function TodoDashboard() {
   const {

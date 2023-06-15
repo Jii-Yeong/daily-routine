@@ -17,7 +17,7 @@ export const selectTodoCategoryList = async (
   return data
 }
 
-export const selectTodoCategory = async (id: TodoCategoryModel["id"]) => {
+export const selectTodoCategory = async (id: TodoCategoryDto["id"]) => {
   const { data } = await supabaseAdmin
     .from(DB_TABLE_NAME.todoCategory)
     .select()
@@ -28,4 +28,12 @@ export const selectTodoCategory = async (id: TodoCategoryModel["id"]) => {
 
 export const insertTodoCategory = async (category: TodoCategoryReqDto) => {
   await supabaseAdmin.from(DB_TABLE_NAME.todoCategory).insert(category)
+}
+
+export const deleteTodoCategory = async (id: TodoCategoryDto["id"]) => {
+  const { error } = await supabaseAdmin
+    .from(DB_TABLE_NAME.todoCategory)
+    .delete()
+    .eq("id", id)
+  if (error) console.log(error)
 }

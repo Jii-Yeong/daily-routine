@@ -3,6 +3,7 @@ import {
   TodoCategoryReqDto,
 } from "@/model/todo/todo-category.dto"
 import {
+  deleteTodoCategory,
   insertTodoCategory,
   selectTodoCategory,
   selectTodoCategoryList,
@@ -20,6 +21,14 @@ export const getTodoCategoryService = async (
   return await selectTodoCategory(Number(categoryId))
 }
 
-export const addTodoCategoryService = async (category: TodoCategoryReqDto) => {
+export const clickAddTodoCategoryService = async (
+  category: TodoCategoryReqDto
+) => {
   await insertTodoCategory(category)
+}
+
+export const deleteTodoCategoryService = async (
+  categoryId: TodoCategoryDto["id"]
+) => {
+  await deleteTodoCategory(categoryId)
 }

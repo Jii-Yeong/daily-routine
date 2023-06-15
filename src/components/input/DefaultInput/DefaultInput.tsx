@@ -15,7 +15,7 @@ export default function DefaultInput({
     <input
       className="default-input"
       onChange={changeInput}
-      onKeyUp={enterInput}
+      onKeyDown={enterInput}
       value={inputValue}
     />
   )

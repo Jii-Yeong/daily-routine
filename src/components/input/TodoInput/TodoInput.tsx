@@ -1,7 +1,7 @@
-import "./TodoInput.scss"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
-import { ChangeEvent, KeyboardEvent, useState } from "react"
 import DefaultInput from "@/components/input/DefaultInput/DefaultInput.tsx"
+import { ChangeEvent, KeyboardEvent, useState } from "react"
+import "./TodoInput.scss"
 
 type TodoInputProps = {
   setTodoItemValue: (text: string) => void
@@ -28,7 +28,7 @@ export default function TodoInput({
   }
 
   const enterTodoItem = (e: KeyboardEvent) => {
-    if (e.code === "Enter") {
+    if (e.code === "Enter" && e.nativeEvent.isComposing) {
       setTodoItemValue(inputText)
     }
   }

@@ -12,10 +12,12 @@ import {
 } from "@/model/todo/todo-category.model.ts"
 import { useSearchParams } from "react-router-dom"
 import {
-  addTodoCategoryService,
+  clickAddTodoCategoryService,
+  deleteTodoCategoryService,
   getTodoCategoryListService,
   getTodoCategoryService,
 } from "@/service/todo/todo-category.service"
+import { TodoCategoryDto } from "@/model/todo/todo-category.dto"
 
 export const useTodoCategory = () => {
   const user = useRecoilValue(userProfileSelector)
@@ -43,15 +45,19 @@ export const useTodoCategory = () => {
     setCategory(data)
   }, [categoryId])
 
-  const addTodoCategory = async (name: string) => {
+  const clickAddTodoCategory = async (name: string) => {
     if (!userId) return
 
     const category = {
       user_id: userId,
       name,
     }
-    await addTodoCategoryService(category)
+    await clickAddTodoCategoryService(category)
     await fetchTodoCategoryList()
+  }
+
+  const clickDeleteTodoCategory = (id: TodoCategoryDto["id"]) => {
+    deleteTodoCategoryService(id)
   }
 
   useEffect(() => {
@@ -67,6 +73,7 @@ export const useTodoCategory = () => {
     category,
     fetchTodoCategoryList,
     fetchTodoCategory,
-    addTodoCategory,
+    clickAddTodoCategory,
+    clickDeleteTodoCategory,
   }
 }

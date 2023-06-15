@@ -28,7 +28,7 @@ export default function TodoInput({
   }
 
   const enterTodoItem = (e: KeyboardEvent) => {
-    if (e.code === "Enter" && e.nativeEvent.isComposing) {
+    if (e.code === "Enter" && !e.nativeEvent.isComposing) {
       setTodoItemValue(inputText)
     }
   }

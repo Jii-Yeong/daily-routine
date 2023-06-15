@@ -5,12 +5,9 @@
 
   .user-profile-area {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-
+    @include flexRow(space-between, flex-start);
     .user-information {
-      display: flex;
-      align-items: center;
+      @include flexRow(flex-start, center);
       column-gap: 8px;
     }
   }

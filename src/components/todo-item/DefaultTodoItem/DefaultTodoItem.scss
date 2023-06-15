@@ -1,14 +1,11 @@
 .default-todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flexRow(space-between, center);
   border: 1px solid #e9e9ec;
   padding: 8px;
   border-radius: 8px;
 
   .todo-item {
-    display: flex;
-    align-items: center;
+    @include flexRow(flex-start, center);
     column-gap: 8px;
 
     .check-box {

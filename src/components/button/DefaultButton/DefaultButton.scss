@@ -6,6 +6,5 @@
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
-  display: flex;
-  align-items: center;
+  @include flexRow(flex-start, center);
 }

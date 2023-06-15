@@ -1,12 +1,15 @@
 .todo-dash-board {
-  display: flex;
-  flex-direction: column;
+  @include flexCol(flex-start, flex-start);
   row-gap: 8px;
   padding: 8px;
   
   .todo-list-container {
-    display: flex;
-    flex-direction: column;
+    @include flexCol(flex-start, flex-start);
     row-gap: 8px;
+    width: 100%;
+  }
+  
+  .todo-input-container {
+    width: 100%;
   }
 }

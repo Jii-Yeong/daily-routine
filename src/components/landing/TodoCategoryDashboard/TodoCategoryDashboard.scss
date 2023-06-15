@@ -1,7 +1,6 @@
 .todo-category-dashboard {
     padding: 8px;
-    display: flex;
-    flex-direction: column;
+    @include flexCol(flex-start, flex-start);
     gap: 16px; 
     
     .catetory-list {

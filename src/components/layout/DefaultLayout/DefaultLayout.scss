@@ -1,14 +1,12 @@
 .default-layout {
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  @include flexRow(center, flex-start);
 
   .default-layout-inner {
     width: 100%;
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
+    max-width: 1000px;
+    @include flexRow(center, flex-start);
     column-gap: 16px;
 
     .sidebar-layout {

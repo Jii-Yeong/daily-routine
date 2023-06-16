@@ -1,3 +1,4 @@
+import AddButton from "@/components/button/AddButton/AddButton"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
 import EditorInput from "@/components/input/EditorInput/EditorInput"
 import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoItem.tsx"
@@ -16,9 +17,19 @@ export default function TodoDashboard() {
   } = useTodoList()
   const { category } = useTodoCategory()
   const [editorValue, setEditorValue] = useState("")
+  const [isClickAddButton, setIsClickAddButton] = useState(false)
   const handleClickSubmitButton = () => {
     enterTodoItem(editorValue)
   }
+
+  const handleClickAddButton = () => {
+    setIsClickAddButton(true)
+  }
+
+  const handleClickCancelButton = () => {
+    setIsClickAddButton(false)
+  }
+
   return (
     <div className="todo-dash-board">
       <p>{category?.name}</p>
@@ -35,11 +46,27 @@ export default function TodoDashboard() {
           )
         })}
       </div>
-      <div className="todo-input-container">
-        <EditorInput value={editorValue} setValue={setEditorValue} />
-        <DefaultButton text="입력" onClickButton={handleClickSubmitButton} />
-        {/* <TodoInput setTodoItemValue={enterTodoItem} buttonText="입력" /> */}
-      </div>
+
+      {isClickAddButton ? (
+        <div className="todo-input-container">
+          <EditorInput value={editorValue} setValue={setEditorValue} />
+          <div className="control-button">
+            <DefaultButton
+              text="입력"
+              onClickButton={handleClickSubmitButton}
+            />
+            <DefaultButton
+              text="취소"
+              onClickButton={handleClickCancelButton}
+            />
+          </div>
+        </div>
+      ) : (
+        <AddButton
+          text="투두리스트 추가"
+          clickAddButton={handleClickAddButton}
+        />
+      )}
     </div>
   )
 }

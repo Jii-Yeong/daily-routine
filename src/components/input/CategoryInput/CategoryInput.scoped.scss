@@ -1,6 +1,6 @@
 .category-input {
   width: 100%;
-  
+
   .default-input {
     display: flex;
     column-gap: 8px;
@@ -8,13 +8,5 @@
     .todo-input-wrapper {
       flex: 1;
     }
-  }
-
-  .add-category-text {
-    padding: 8px;
-    color: #18bc4f;
-    cursor: pointer;
-    display: flex;
-    column-gap: 8px;
   }
 }

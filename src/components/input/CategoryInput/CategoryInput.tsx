@@ -1,8 +1,8 @@
-import { useState } from "react"
-import "./CategoryInput.scoped.scss"
-import TodoInput from "../TodoInput/TodoInput"
+import AddButton from "@/components/button/AddButton/AddButton"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
-import MuIcon from "@/components/icon/MuIcon"
+import { useState } from "react"
+import TodoInput from "../TodoInput/TodoInput"
+import "./CategoryInput.scoped.scss"
 
 type CategoryInput = {
   setCategoryValue: (name: string) => void
@@ -28,10 +28,7 @@ export default function CategoryInput({ setCategoryValue }: CategoryInput) {
           <DefaultButton text="취소" onClickButton={handleClickCancelButton} />
         </div>
       ) : (
-        <div className="add-category-text" onClick={handleClickAddButton}>
-          <MuIcon icon="add" size={20} />
-          <p className="text">카테고리 추가</p>
-        </div>
+        <AddButton text="카테고리 추가" clickAddButton={handleClickAddButton} />
       )}
     </div>
   )

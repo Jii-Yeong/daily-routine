@@ -2,14 +2,19 @@
   @include flexCol(flex-start, flex-start);
   row-gap: 8px;
   padding: 8px;
-  
+
   .todo-list-container {
     @include flexCol(flex-start, flex-start);
     row-gap: 8px;
     width: 100%;
   }
-  
+
   .todo-input-container {
     width: 100%;
+    .control-button {
+      @include flexRow(flex-end, center);
+      padding: 8px;
+      column-gap: 8px;
+    }
   }
 }

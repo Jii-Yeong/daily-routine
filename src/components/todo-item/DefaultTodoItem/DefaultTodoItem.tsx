@@ -51,7 +51,10 @@ export default function DefaultTodoItem({
               <img className="check-image" src={checkImage} alt="check-image" />
             )}
           </div>
-          <p className="todo-text">{item.text}</p>
+          <div
+            className="todo-text"
+            dangerouslySetInnerHTML={{ __html: item.text }}
+          />
         </div>
       ) : (
         <div className="todo-item-edit-input">

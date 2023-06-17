@@ -18,8 +18,8 @@ export default function EditorInputWrapper({
     <div className="todo-input-container">
       <EditorInput value={editorValue} setValue={setEditorValue} />
       <div className="control-button">
-        <DefaultButton text="입력" onClickButton={clickCancelButton} />
-        <DefaultButton text="취소" onClickButton={clickSubmitButton} />
+        <DefaultButton text="입력" onClickButton={clickSubmitButton} />
+        <DefaultButton text="취소" onClickButton={clickCancelButton} />
       </div>
     </div>
   )

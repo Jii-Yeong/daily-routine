@@ -22,19 +22,9 @@ export const useTodoList = () => {
     setTodoList(data)
   }, [userId, categoryId])
 
-  const enterTodoItem = async (text: string) => {
-    if (!userId) {
-      setTodoList([
-        ...todoList,
-        {
-          id: Math.random(),
-          text,
-          checked: false,
-        },
-      ])
-      return
-    }
-    await addTodoListSerivce(text, userId, categoryId)
+  const enterTodoItem = async (text: string, itemId?: TodoItemModel["id"]) => {
+    if (!userId) return
+    await addTodoListSerivce(text, itemId || null, userId, categoryId)
     await fetchTodoList()
   }
 

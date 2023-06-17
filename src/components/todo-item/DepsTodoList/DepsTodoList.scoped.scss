@@ -1,0 +1,14 @@
+.deps-todo-item {
+  width: 100%;
+  @include flexCol(stretch, stretch);
+  row-gap: 16px;
+  .one-deps-todo-item {
+    border: 1px solid #d7d7d7;
+    padding: 8px;
+    border-radius: 8px;
+
+    .two-deps-todo-item {
+      padding: 4px 8px;
+    }
+  }
+}

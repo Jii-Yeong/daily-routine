@@ -28,7 +28,7 @@ export const getTodoListService = async (
     }
   })
 
-  return todoList.filter((item) => !item.is_sub_item)
+  return todoList.filter((item) => !item.sub_id)
 }
 
 export const addTodoListSerivce = async (
@@ -41,7 +41,6 @@ export const addTodoListSerivce = async (
     todo_text: text,
     user_id: userId,
     sub_id: itemId,
-    is_sub_item: !!itemId,
   }
   if (categoryId) todoReq["category_id"] = Number(categoryId)
   await addTodoItem(todoReq)

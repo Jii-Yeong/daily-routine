@@ -1,6 +1,5 @@
 import AddButton from "@/components/button/AddButton/AddButton"
-import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
-import EditorInput from "@/components/input/EditorInput/EditorInput"
+import EditorInputWrapper from "@/components/input/EditorInputWrapper/EditorInputWrapper"
 import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoItem.tsx"
 import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 import { useTodoList } from "@/hooks/todo/useTodoList.ts"
@@ -48,19 +47,12 @@ export default function TodoDashboard() {
       </div>
 
       {isClickAddButton ? (
-        <div className="todo-input-container">
-          <EditorInput value={editorValue} setValue={setEditorValue} />
-          <div className="control-button">
-            <DefaultButton
-              text="입력"
-              onClickButton={handleClickSubmitButton}
-            />
-            <DefaultButton
-              text="취소"
-              onClickButton={handleClickCancelButton}
-            />
-          </div>
-        </div>
+        <EditorInputWrapper
+          editorValue={editorValue}
+          clickCancelButton={handleClickCancelButton}
+          clickSubmitButton={handleClickSubmitButton}
+          setEditorValue={setEditorValue}
+        />
       ) : (
         <AddButton
           text="투두리스트 추가"

@@ -16,15 +16,19 @@ export const getTodoListService = async (
 ) => {
   const data = await getTodoList(userId, categoryId)
   const subData = data.filter((item) => item.sub_id)
-  return data.map((item) => {
+
+  const todoList = data.map((item) => {
     const subList = subData
       .filter((sub) => sub.sub_id === item.id)
       .map((item) => toTodoItemModel(item))
+
     return {
       ...toTodoItemModel(item),
       sub_item: subList.length > 0 ? subList : null,
     }
   })
+
+  return todoList.filter((item) => !item.is_sub_item)
 }
 
 export const addTodoListSerivce = async (
@@ -37,6 +41,7 @@ export const addTodoListSerivce = async (
     todo_text: text,
     user_id: userId,
     sub_id: itemId,
+    is_sub_item: !!itemId,
   }
   if (categoryId) todoReq["category_id"] = Number(categoryId)
   await addTodoItem(todoReq)

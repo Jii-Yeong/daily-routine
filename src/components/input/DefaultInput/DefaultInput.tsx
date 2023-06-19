@@ -8,6 +8,7 @@ type DefaultInputProps = {
   inputValue?: string
   height?: number | string
   fontSize?: number | string
+  placeholder?: string
 }
 export default function DefaultInput({
   changeInput,
@@ -15,6 +16,7 @@ export default function DefaultInput({
   inputValue = "",
   height = 30,
   fontSize = 15,
+  placeholder,
 }: DefaultInputProps) {
   const style = {
     height: parseDomSizeValue(height),
@@ -27,6 +29,7 @@ export default function DefaultInput({
       onChange={changeInput}
       onKeyDown={enterInput}
       value={inputValue}
+      placeholder={placeholder}
     />
   )
 }

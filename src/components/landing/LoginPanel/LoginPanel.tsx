@@ -22,11 +22,17 @@ export default function LoginPanel() {
     <div className="login-panel-container">
       <div className="login-panel">
         <p className="title">Daily Routine</p>
-        <DefaultInput inputValue={id} changeInput={handleSetId} height={40} />
+        <DefaultInput
+          inputValue={id}
+          changeInput={handleSetId}
+          height={40}
+          placeholder="아이디"
+        />
         <DefaultInput
           inputValue={password}
           changeInput={handleSetPassword}
           height={40}
+          placeholder="비밀번호"
         />
         <div className="login-button-wrapper">
           <DefaultButton

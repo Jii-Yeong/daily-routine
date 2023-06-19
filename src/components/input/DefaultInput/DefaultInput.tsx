@@ -1,18 +1,28 @@
+import { parseDomSizeValue } from "@/utils/string.utils"
 import { ChangeEvent, KeyboardEvent } from "react"
 import "./DefaultInput.scoped.scss"
 
 type DefaultInputProps = {
   changeInput: (e: ChangeEvent) => void
-  enterInput: (e: KeyboardEvent) => void
+  enterInput?: (e: KeyboardEvent) => void
   inputValue?: string
+  height?: number | string
+  fontSize?: number | string
 }
 export default function DefaultInput({
   changeInput,
   enterInput,
   inputValue = "",
+  height = 30,
+  fontSize = 15,
 }: DefaultInputProps) {
+  const style = {
+    height: parseDomSizeValue(height),
+    fontSize: parseDomSizeValue(fontSize),
+  }
   return (
     <input
+      style={style}
       className="default-input"
       onChange={changeInput}
       onKeyDown={enterInput}

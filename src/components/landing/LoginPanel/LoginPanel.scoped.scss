@@ -1,0 +1,27 @@
+.login-panel-container {
+  padding: 56px 32px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  min-width: 350px;
+  .login-panel {
+    @include flexCol(stretch, center);
+    row-gap: 16px;
+
+    .title {
+      font-size: 30px;
+      font-weight: bold;
+      padding-bottom: 16px;
+    }
+
+    .login-button-wrapper {
+      width: 100%;
+      padding-top: 16px;
+    }
+
+    .not-have-id-text {
+      font-size: 12px;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}

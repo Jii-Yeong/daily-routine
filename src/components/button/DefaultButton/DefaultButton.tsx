@@ -8,6 +8,8 @@ type DefaultButtonProps = {
   color?: string
   backgroundColor?: string
   fontSize?: string | number
+  width?: string | number
+  height?: string | number
 }
 
 export default function DefaultButton({
@@ -17,8 +19,12 @@ export default function DefaultButton({
   color,
   backgroundColor,
   fontSize = 14,
+  width = "auto",
+  height = "auto",
 }: DefaultButtonProps) {
   const buttonStyle = {
+    width: parseDomSizeValue(width),
+    height: parseDomSizeValue(height),
     padding: parseDomSizeValue(padding),
     color: color,
     backgroundColor: backgroundColor,

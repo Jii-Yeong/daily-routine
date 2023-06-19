@@ -1,8 +1,17 @@
-.default-input {
+.default-input-container {
   width: 100%;
   height: 100%;
-  border: 1px solid #e9e9ec;
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 8px;
+  .default-input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e9e9ec;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px;
+  }
+  .wrong-text {
+    font-size: 12px;
+    margin: 4px;
+    color: rgb(249, 22, 22);
+  }
 }

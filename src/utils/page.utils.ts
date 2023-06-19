@@ -5,3 +5,7 @@ export const getRootPage = () => {
 export const getTodoListPage = () => {
   return "/todo-page"
 }
+
+export const getSignUpPage = () => {
+  return "/sign-up"
+}

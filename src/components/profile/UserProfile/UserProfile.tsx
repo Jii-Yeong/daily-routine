@@ -1,6 +1,6 @@
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
-import { signInWithGoogle, singOutForSite } from "@/supabase/login.ts"
+import { signInWithGoogle, singOutForSite } from "@/supabase/auth"
 import { getRootPage } from "@/utils/page.utils"
 import { useNavigate } from "react-router-dom"
 import { useRecoilValue } from "recoil"

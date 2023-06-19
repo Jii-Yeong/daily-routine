@@ -10,6 +10,7 @@ type DefaultButtonProps = {
   fontSize?: string | number
   width?: string | number
   height?: string | number
+  type?: string
 }
 
 export default function DefaultButton({

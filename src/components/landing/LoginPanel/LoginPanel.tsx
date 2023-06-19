@@ -1,11 +1,15 @@
+import googleLogo from "@/assets/images/logo/google-logo.png"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
 import DefaultInput from "@/components/input/DefaultInput/DefaultInput"
+import { signInWithGoogle } from "@/supabase/login"
 import { ChangeEvent, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "./LoginPanel.scoped.scss"
 
 export default function LoginPanel() {
   const [id, setId] = useState("")
   const [password, setPassword] = useState("")
+  const navigator = useNavigate()
 
   const handleSetId = (e: ChangeEvent) => {
     const element = e.target as HTMLInputElement
@@ -17,6 +21,15 @@ export default function LoginPanel() {
   }
   const handleClickLoginButton = () => {
     console.log("click")
+  }
+
+  const handleClickSocialButton = async (socialName: string) => {
+    switch (socialName) {
+      case "google": {
+        signInWithGoogle()
+        break
+      }
+    }
   }
   return (
     <div className="login-panel-container">
@@ -40,6 +53,14 @@ export default function LoginPanel() {
             width="100%"
             onClickButton={handleClickLoginButton}
             height={40}
+          />
+        </div>
+        <div className="social-login-container">
+          <img
+            className="social-login-button"
+            src={googleLogo}
+            alt="google-logo"
+            onClick={() => handleClickSocialButton("google")}
           />
         </div>
         <p className="not-have-id-text">

@@ -1,5 +1,6 @@
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
 import EditorInput from "@/components/input/EditorInput/EditorInput"
+import "./EditorInputWrapper.scoped.scss"
 
 type EditorInputWrapperProps = {
   editorValue: string

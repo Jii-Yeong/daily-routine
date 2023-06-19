@@ -1,17 +1,21 @@
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import { signInWithGoogle, singOutForSite } from "@/supabase/login.ts"
+import { getRootPage } from "@/utils/page.utils"
+import { useNavigate } from "react-router-dom"
 import { useRecoilValue } from "recoil"
 import "./UserProfile.scoped.scss"
 
 export default function UserProfile() {
   const userProfile = useRecoilValue(userProfileSelector)
+  const navigate = useNavigate()
+
   const clickSignIn = () => {
     signInWithGoogle()
   }
   const clickSignOut = async () => {
     await singOutForSite()
-    location.reload()
+    navigate(getRootPage())
   }
   return (
     <div className="user-profile">

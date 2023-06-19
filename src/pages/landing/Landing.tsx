@@ -8,8 +8,8 @@ import "./Landing.scoped.scss"
 export default function Landing() {
   const navigate = useNavigate()
   const checkIsUser = useCallback(async () => {
-    const user = await supabaseAdmin.auth.getUser()
-    if (user.data.user) navigate("/todo-page")
+    const user = await supabaseAdmin.auth.getSession()
+    if (user.data.session) navigate("/todo-page")
   }, [navigate])
 
   useEffect(() => {

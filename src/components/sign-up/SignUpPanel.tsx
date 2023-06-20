@@ -34,41 +34,40 @@ export default function SignUpPanel() {
   const handleSetEmail = (e: ChangeEvent) => {
     const element = e.target as HTMLInputElement
     setEmail(element.value)
-  }
 
-  const handleSetPassword = (e: ChangeEvent) => {
-    const element = e.target as HTMLInputElement
-    setPassword(element.value)
-  }
-  const handleSetPasswordConfirm = (e: ChangeEvent) => {
-    const element = e.target as HTMLInputElement
-    setPasswordConfirm(element.value)
-  }
-  const handleClickSignUpButton = () => {
-    if (!email) {
+    if (!element.value) {
       setWrongEmail(true)
       setWrongEmailText(EMAIL_CONFIRM_MESSAGE.emptyEmail)
-    } else if (!emailRegex.test(email)) {
+    } else if (!emailRegex.test(element.value)) {
       setWrongEmail(true)
       setWrongEmailText(EMAIL_CONFIRM_MESSAGE.unstyledEmail)
     } else {
       setWrongEmail(false)
     }
+  }
 
-    if (!password) {
+  const handleSetPassword = (e: ChangeEvent) => {
+    const element = e.target as HTMLInputElement
+    setPassword(element.value)
+
+    if (!element.value) {
       setWrongPassword(true)
       setWrongPasswordText(PASSWORD_CONFIRM_MESSAGE.emptyPassword)
-    } else if (password.length < 6) {
+    } else if (element.value.length < 6) {
       setWrongPassword(true)
       setWrongPasswordText(PASSWORD_CONFIRM_MESSAGE.wrongPasswordLength)
     } else {
       setWrongPassword(false)
     }
+  }
+  const handleSetPasswordConfirm = (e: ChangeEvent) => {
+    const element = e.target as HTMLInputElement
+    setPasswordConfirm(element.value)
 
-    if (!passwordConfirm) {
+    if (!element.value) {
       setWrongPasswordConfirm(true)
       setWrongPasswordConfirmText(CONFIRM_PASSWORD_MESSAGE.emptyPasswordConfirm)
-    } else if (password !== passwordConfirm) {
+    } else if (password !== element.value) {
       setWrongPasswordConfirm(true)
       setWrongPasswordConfirmText(
         CONFIRM_PASSWORD_MESSAGE.notMathPasswordConfirm
@@ -76,7 +75,9 @@ export default function SignUpPanel() {
     } else {
       setWrongPasswordConfirm(false)
     }
+  }
 
+  const handleClickSignUpButton = () => {
     if (
       !email ||
       !password ||
@@ -87,7 +88,13 @@ export default function SignUpPanel() {
     )
       return
 
-    signUpWithPassword(email, password)
+    console.log(isWrongEmail)
+
+    signUpWithPassword(email, password).then(() => {
+      alert(
+        "해당 이메일로 회원가입 확인 메일을 보내드렸으니 확인 부탁드립니다."
+      )
+    })
   }
 
   const handleClickChangePage = () => {

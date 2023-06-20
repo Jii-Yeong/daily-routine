@@ -1,16 +1,8 @@
-import {
-  UserProfileModel,
-  initUserProfile,
-} from "@/model/user/user-profile.model"
+import { UserProfileModel } from "@/model/user/user-profile.model"
 import { getUserProfile } from "@/repository/user/profile.repository"
 import { saveUserProfile } from "@/supabase/auth"
 import supabaseAdmin from "@/supabase/init.ts"
-import { atom, selector } from "recoil"
-
-export const userProfileAtom = atom<UserProfileModel | null>({
-  key: "userProfileAtom",
-  default: initUserProfile(),
-})
+import { selector } from "recoil"
 
 export const userProfileSelector = selector<UserProfileModel | null>({
   key: "userProfileSelector",
@@ -25,8 +17,6 @@ export const userProfileSelector = selector<UserProfileModel | null>({
 
       const userData = await getUserProfile(userId)
 
-      console.log(userData)
-
       if (!userData) {
         saveUserProfile(userId, thumbnail)
 
@@ -39,8 +29,5 @@ export const userProfileSelector = selector<UserProfileModel | null>({
       console.log(e)
       return null
     }
-  },
-  set: ({ set }, newValue) => {
-    set(userProfileAtom, newValue)
   },
 })

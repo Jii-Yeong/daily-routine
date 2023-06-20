@@ -1,11 +1,21 @@
+import { CHART_TYPE } from "@/constants/chart-type.constants"
 import * as Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 
 type DefaultPieChartProps = {
-  options: Highcharts.Options
+  series: Highcharts.SeriesOptionsType[]
 }
 
-export default function DefaultPieChart({ options }: DefaultPieChartProps) {
+export default function DefaultPieChart({ series }: DefaultPieChartProps) {
+  const options: Highcharts.Options = {
+    chart: {
+      type: CHART_TYPE.pie,
+    },
+    title: {
+      text: "",
+    },
+    series,
+  }
   return (
     <div className="default-pie-chart">
       <HighchartsReact highcharts={Highcharts} options={options} />

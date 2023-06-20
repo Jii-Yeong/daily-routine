@@ -1,10 +1,13 @@
 import DefaultLayout from "@/components/layout/DefaultLayout/DefaultLayout"
+import CheckTodoListChart from "@/components/my-page/CheckTodoListChart/CheckTodoListChart"
 import MyPageSidebar from "@/components/sidebar/MyPageSidebar/MyPageSidebar"
 
 export default function MyPage() {
   return (
     <DefaultLayout sidebarChildren={<MyPageSidebar />}>
-      <div></div>
+      <div className="main-container">
+        <CheckTodoListChart />
+      </div>
     </DefaultLayout>
   )
 }

@@ -4,7 +4,7 @@ import { DB_TABLE_NAME } from "@/constants/db-table.constants.ts"
 
 export const getTodoList = async (
   userId: TodoItemDto["user_id"],
-  categoryId: string | null
+  categoryId?: string | null
 ) => {
   const response = supabaseAdmin
     .from("todo_item")

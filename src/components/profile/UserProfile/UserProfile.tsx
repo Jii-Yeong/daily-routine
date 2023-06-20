@@ -48,6 +48,7 @@ export default function UserProfile() {
               />
             )}
           </div>
+          <p className="user-name">{userProfile.user_name}</p>
           <DefaultButton text="로그아웃" onClickButton={clickSignOut} />
         </div>
       ) : (

@@ -9,3 +9,15 @@ export const getUserProfile = async (userId: string) => {
     .single<UserProfileDto>()
   return data
 }
+
+export const insertUserProfile = async (
+  id: string,
+  name: string,
+  thumbnail?: string
+) => {
+  await supabaseAdmin.from("profiles").insert({
+    id,
+    user_name: name,
+    user_image: thumbnail,
+  })
+}

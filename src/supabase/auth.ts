@@ -1,13 +1,6 @@
 import supabaseAdmin from "@/supabase/init.ts"
 import { getTodoListPage } from "@/utils/page.utils"
 
-export const saveUserProfile = async (id: string, thumbnail?: string) => {
-  await supabaseAdmin.from("profiles").insert({
-    id,
-    user_image: thumbnail,
-  })
-}
-
 export const signUpWithPassword = async (email: string, password: string) => {
   try {
     const { error } = await supabaseAdmin.auth.signUp({

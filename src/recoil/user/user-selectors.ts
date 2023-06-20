@@ -1,6 +1,8 @@
 import { UserProfileModel } from "@/model/user/user-profile.model"
-import { getUserProfile } from "@/repository/user/profile.repository"
-import { saveUserProfile } from "@/supabase/auth"
+import {
+  getUserProfile,
+  insertUserProfile,
+} from "@/repository/user/profile.repository"
 import supabaseAdmin from "@/supabase/init.ts"
 import { selector } from "recoil"
 
@@ -14,11 +16,12 @@ export const userProfileSelector = selector<UserProfileModel | null>({
 
       const userId = data.user.id
       const thumbnail = data.user.user_metadata.avatar_url
+      const email = data.user.email
 
       const userData = await getUserProfile(userId)
 
       if (!userData) {
-        saveUserProfile(userId, thumbnail)
+        insertUserProfile(userId, email ?? "", thumbnail)
 
         const refreshUserData = await getUserProfile(userId)
         return refreshUserData

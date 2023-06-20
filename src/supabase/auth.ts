@@ -19,7 +19,9 @@ export const signInWithPassword = async (email: string, password: string) => {
       email,
       password,
     })
-    if (error) console.log(error)
+    if (error) {
+      return new Error()
+    }
   } catch (e) {
     console.log(e)
   }

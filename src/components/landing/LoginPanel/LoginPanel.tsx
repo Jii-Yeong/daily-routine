@@ -10,6 +10,7 @@ import "./LoginPanel.scoped.scss"
 export default function LoginPanel() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [isWrongLogin, setIsWrongLogin] = useState(false)
   const navigate = useNavigate()
 
   const handleSetEmail = (e: ChangeEvent) => {
@@ -20,10 +21,13 @@ export default function LoginPanel() {
     const element = e.target as HTMLInputElement
     setPassword(element.value)
   }
-  const handleClickLoginButton = () => {
-    signInWithPassword(email, password).then(() => {
+  const handleClickLoginButton = async () => {
+    const signIn = await signInWithPassword(email, password)
+    if (!signIn) {
       navigate(getTodoListPage())
-    })
+      return
+    }
+    setIsWrongLogin(true)
   }
   const handleClickSignUpButton = () => {
     navigate(getSignUpPage())
@@ -65,6 +69,9 @@ export default function LoginPanel() {
           onClick={() => handleClickSocialButton("google")}
         />
       </div>
+      {isWrongLogin && (
+        <p className="wrong-login">아이디와 비밀번호를 다시 확인해주세요.</p>
+      )}
     </AuthPanel>
   )
 }

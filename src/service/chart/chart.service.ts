@@ -1,8 +1,12 @@
-import { CHART_TYPE } from "@/constants/chart/chart-type.constants"
+import { HIGHCHARTS_TYPE } from "@/constants/chart/chart-type.constants"
+import { TodoItemDto } from "@/model/todo/todo-item.dto"
+import { selectTodoCategoryList } from "@/repository/todo/todo-category.repository"
 import { getTodoList } from "@/repository/todo/todo-item.repository"
 import { parseDateToFormat } from "@/utils/date.utils"
 
-export const checkTodoListOptionsService = async (id: string) => {
+export const checkTodoListOptionsService = async (
+  id: TodoItemDto["user_id"]
+) => {
   const todoList = await getTodoList(id)
   const todoListSize = todoList.length
 
@@ -16,16 +20,17 @@ export const checkTodoListOptionsService = async (id: string) => {
   const data = [
     {
       name: "완료",
-      y: checkPercentage,
+      y: Number(checkPercentage.toFixed(2)),
     },
     {
       name: "미완료",
-      y: uncheckedPercent,
+      y: Number(uncheckedPercent.toFixed(2)),
     },
   ]
   const series = [
     {
-      type: CHART_TYPE.pie,
+      type: HIGHCHARTS_TYPE.pie,
+      name: "할일 통계",
       data,
     },
   ]
@@ -34,7 +39,9 @@ export const checkTodoListOptionsService = async (id: string) => {
   }
 }
 
-export const dateTodoListSeriesService = async (id: string) => {
+export const dateTodoListOptionsService = async (
+  id: TodoItemDto["user_id"]
+) => {
   const todoList = await getTodoList(id)
   const dateList = todoList.map((item) => parseDateToFormat(item.created_at))
   const deduplicationList = dateList.filter(
@@ -65,20 +72,77 @@ export const dateTodoListSeriesService = async (id: string) => {
 
   const series = [
     {
-      type: CHART_TYPE.column,
-      name: "미완료",
-      data: unCheckedList,
-    },
-    {
-      type: CHART_TYPE.column,
+      type: HIGHCHARTS_TYPE.column,
       name: "완료",
       data: checkedList,
+    },
+    {
+      type: HIGHCHARTS_TYPE.column,
+      name: "미완료",
+      data: unCheckedList,
     },
   ]
 
   const xAxis = {
     categories: deduplicationList,
   }
+  return {
+    series,
+    xAxis,
+  }
+}
+
+export const categoryTodoListOptionsService = async (
+  id: TodoItemDto["user_id"]
+) => {
+  const todoList = await getTodoList(id)
+  const categoryList = await selectTodoCategoryList(id)
+
+  categoryList?.unshift({
+    id: null,
+    created_at: "",
+    name: "전체",
+    user_id: "",
+  })
+
+  const categoryNameList = categoryList?.map((item) => item.name)
+
+  const checkedList = categoryList?.map((item) => {
+    const parsedTodoList = todoList
+      .filter((todo) => item.id === todo.category_id)
+      .filter((todo) => todo.checked)
+    return parsedTodoList.length
+  })
+
+  const unCheckedList = categoryList?.map((item) => {
+    const parsedTodoList = todoList
+      .filter((todo) => item.id === todo.category_id)
+      .filter((todo) => !todo.checked)
+    return parsedTodoList.length
+  })
+
+  const series = [
+    {
+      type: HIGHCHARTS_TYPE.column,
+      name: "미완료",
+      data: unCheckedList,
+    },
+
+    {
+      type: HIGHCHARTS_TYPE.column,
+      name: "완료",
+      data: checkedList,
+    },
+  ]
+
+  console.log(unCheckedList, checkedList)
+
+  const xAxis = {
+    categories: categoryNameList,
+  }
+
+  console.log(xAxis)
+
   return {
     series,
     xAxis,

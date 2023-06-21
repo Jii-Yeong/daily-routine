@@ -1,10 +1,8 @@
-import { CHART_TYPE } from "@/constants/chart-type.constants"
+import { CHART_TYPE } from "@/constants/chart/chart-type.constants"
 import { getTodoList } from "@/repository/todo/todo-item.repository"
-import { SeriesPieOptions } from "highcharts"
+import { parseDateToFormat } from "@/utils/date.utils"
 
-export const checkTodoListSeriesService = async (
-  id: string
-): Promise<SeriesPieOptions[]> => {
+export const checkTodoListOptionsService = async (id: string) => {
   const todoList = await getTodoList(id)
   const todoListSize = todoList.length
 
@@ -31,5 +29,58 @@ export const checkTodoListSeriesService = async (
       data,
     },
   ]
-  return series
+  return {
+    series,
+  }
+}
+
+export const dateTodoListSeriesService = async (id: string) => {
+  const todoList = await getTodoList(id)
+  const dateList = todoList.map((item) => parseDateToFormat(item.created_at))
+  const deduplicationList = dateList.filter(
+    (item, index) => dateList.indexOf(item) === index
+  )
+
+  const unCheckedList = deduplicationList.map((date) => {
+    let count = 0
+    todoList
+      .filter((item) => !item.checked)
+      .forEach((item) => {
+        const parsedDate = parseDateToFormat(item.created_at)
+        if (date === parsedDate) ++count
+      })
+    return count
+  })
+
+  const checkedList = deduplicationList.map((date) => {
+    let count = 0
+    todoList
+      .filter((item) => item.checked)
+      .forEach((item) => {
+        const parsedDate = parseDateToFormat(item.created_at)
+        if (date === parsedDate) ++count
+      })
+    return count
+  })
+
+  const series = [
+    {
+      type: CHART_TYPE.column,
+      name: "미완료",
+      data: unCheckedList,
+    },
+    {
+      type: CHART_TYPE.column,
+      name: "완료",
+      data: checkedList,
+    },
+  ]
+
+  const xAxis = {
+    categories: deduplicationList,
+  }
+  return {
+    series,
+    xAxis,
+  }
 }

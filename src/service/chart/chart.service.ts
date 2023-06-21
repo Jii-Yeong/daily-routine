@@ -135,13 +135,9 @@ export const categoryTodoListOptionsService = async (
     },
   ]
 
-  console.log(unCheckedList, checkedList)
-
   const xAxis = {
     categories: categoryNameList,
   }
-
-  console.log(xAxis)
 
   return {
     series,

@@ -1,8 +1,8 @@
 import defaultProfileImage from "@/assets/images/profiles/default-profile-image.png"
 import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
-import { signInWithGoogle, singOutForSite } from "@/supabase/auth"
-import { getRootPage } from "@/utils/page.utils"
+import { singOutForSite } from "@/supabase/auth"
+import { getMyPage, getRootPage } from "@/utils/page.utils"
 import { useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil"
@@ -17,9 +17,10 @@ export default function UserProfile() {
 
   const navigate = useNavigate()
 
-  const clickSignIn = () => {
-    signInWithGoogle()
+  const clickMyPageButton = () => {
+    navigate(getMyPage())
   }
+
   const clickSignOut = async () => {
     await singOutForSite()
     navigate(getRootPage())
@@ -31,29 +32,28 @@ export default function UserProfile() {
 
   return (
     <div className="user-profile">
-      {userProfile ? (
-        <div className="user-profile-area">
-          <div className="user-information">
-            {userProfile.user_image ? (
-              <img
-                className="user-image"
-                src={userProfile.user_image}
-                alt="user-image"
-              />
-            ) : (
-              <img
-                className="user-image"
-                src={defaultProfileImage}
-                alt="default-user-image"
-              />
-            )}
-          </div>
-          <p className="user-name">{userProfile.user_name}</p>
-          <DefaultButton text="로그아웃" onClickButton={clickSignOut} />
+      <div className="user-profile-area">
+        <div className="user-information">
+          {userProfile?.user_image ? (
+            <img
+              className="user-image"
+              src={userProfile.user_image}
+              alt="user-image"
+            />
+          ) : (
+            <img
+              className="user-image"
+              src={defaultProfileImage}
+              alt="default-user-image"
+            />
+          )}
         </div>
-      ) : (
-        <DefaultButton text="로그인" onClickButton={clickSignIn} />
-      )}
+        <p className="user-name">{userProfile?.user_name}</p>
+      </div>
+      <div className="profile-button">
+        <DefaultButton text="마이페이지" onClickButton={clickMyPageButton} />
+        <DefaultButton text="로그아웃" onClickButton={clickSignOut} />
+      </div>
     </div>
   )
 }

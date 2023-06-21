@@ -55,7 +55,6 @@ export default function DefaultTodoItem({
     if (!enterTodoItem) return
     enterTodoItem(editorValue, item.id)
     setIsClickAdd(false)
-    console.log("123")
   }
 
   const handleClickAddButton = () => {

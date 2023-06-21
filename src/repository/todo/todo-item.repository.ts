@@ -1,9 +1,10 @@
-import supabaseAdmin from "@/supabase/init.ts"
-import { TodoItemDto, TodoItemReqDto } from "@/model/todo/todo-item.dto.ts"
 import { DB_TABLE_NAME } from "@/constants/db-table.constants.ts"
+import { TodoItemDto, TodoItemReqDto } from "@/model/todo/todo-item.dto.ts"
+import { TodoItemModel } from "@/model/todo/todo-item.model"
+import supabaseAdmin from "@/supabase/init.ts"
 
 export const getTodoList = async (
-  userId: TodoItemDto["user_id"],
+  userId: TodoItemReqDto["user_id"],
   categoryId?: string | null
 ) => {
   const response = supabaseAdmin
@@ -21,7 +22,10 @@ export const addTodoItem = async (todoReq: TodoItemReqDto) => {
   await supabaseAdmin.from(DB_TABLE_NAME.todoItem).insert(todoReq)
 }
 
-export const updateTodoItem = async (id: number, todoItem: TodoItemReqDto) => {
+export const updateTodoItem = async (
+  id: TodoItemModel["id"],
+  todoItem: TodoItemReqDto
+) => {
   const { error } = await supabaseAdmin
     .from(DB_TABLE_NAME.todoItem)
     .update(todoItem)
@@ -29,10 +33,15 @@ export const updateTodoItem = async (id: number, todoItem: TodoItemReqDto) => {
   if (error) console.log(error)
 }
 
-export const deleteTodoItem = async (id: number) => {
-  const { error } = await supabaseAdmin
+export const deleteTodoItem = async (id: TodoItemModel["id"]) => {
+  const { error: mainError } = await supabaseAdmin
     .from(DB_TABLE_NAME.todoItem)
     .delete()
     .eq("id", id)
-  if (error) console.log(error)
+  const { error: subError } = await supabaseAdmin
+    .from(DB_TABLE_NAME.todoItem)
+    .delete()
+    .eq("sub_id", id)
+  if (mainError) console.log(mainError)
+  if (subError) console.log(subError)
 }

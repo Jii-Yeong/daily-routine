@@ -22,13 +22,19 @@ export const useTodoList = () => {
     setTodoList(data)
   }, [userId, categoryId])
 
-  const enterTodoItem = async (text: string, itemId?: TodoItemModel["id"]) => {
+  const enterTodoItem = async (
+    text: TodoItemModel["text"],
+    itemId?: TodoItemModel["id"]
+  ) => {
     if (!userId) return
     await addTodoListSerivce(text, itemId || null, userId, categoryId)
     await fetchTodoList()
   }
 
-  const clickCheckboxButton = async (id: number, checked: boolean) => {
+  const clickCheckboxButton = async (
+    id: TodoItemModel["id"],
+    checked: TodoItemModel["checked"]
+  ) => {
     if (!userId) return
 
     const todoItem = {
@@ -37,7 +43,7 @@ export const useTodoList = () => {
     await updateTodoItemService(id, todoItem)
   }
 
-  const clickDeleteButton = async (id: number) => {
+  const clickDeleteButton = async (id: TodoItemModel["id"]) => {
     if (!userId) {
       const filteredTodoList = todoList.filter((item) => item.id !== id)
       setTodoList(filteredTodoList)
@@ -47,7 +53,10 @@ export const useTodoList = () => {
     await fetchTodoList()
   }
 
-  const editTodoItemValue = async (id: number, text: string) => {
+  const editTodoItemValue = async (
+    id: TodoItemModel["id"],
+    text: TodoItemModel["text"]
+  ) => {
     if (!userId) {
       const filteredTodoList = todoList.map((item) => {
         if (item.id === id) item.text = text

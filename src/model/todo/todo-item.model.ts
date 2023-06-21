@@ -4,4 +4,5 @@ export type TodoItemModel = {
   checked: boolean
   sub_item: TodoItemModel[] | null
   sub_id: boolean
+  category_id: number
 }

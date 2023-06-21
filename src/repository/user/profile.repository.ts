@@ -1,9 +1,10 @@
+import { DB_TABLE_NAME } from "@/constants/db-table.constants"
 import { UserProfileDto } from "@/model/user/user-profile.dto"
 import supabaseAdmin from "@/supabase/init"
 
 export const getUserProfile = async (userId: string) => {
   const { data } = await supabaseAdmin
-    .from("profiles")
+    .from(DB_TABLE_NAME.profiles)
     .select()
     .eq("id", userId)
     .single<UserProfileDto>()
@@ -15,7 +16,7 @@ export const insertUserProfile = async (
   name: string,
   thumbnail?: string
 ) => {
-  await supabaseAdmin.from("profiles").insert({
+  await supabaseAdmin.from(DB_TABLE_NAME.profiles).insert({
     id,
     user_name: name,
     user_image: thumbnail,

@@ -3,6 +3,7 @@ import {
   TodoItemReqDto,
   toTodoItemModel,
 } from "@/model/todo/todo-item.dto"
+import { TodoItemModel } from "@/model/todo/todo-item.model"
 import {
   addTodoItem,
   deleteTodoItem,
@@ -53,6 +54,6 @@ export const updateTodoItemService = async (
   await updateTodoItem(id, todoItem)
 }
 
-export const deleteTodoItemService = async (id: number) => {
+export const deleteTodoItemService = async (id: TodoItemModel["id"]) => {
   await deleteTodoItem(id)
 }

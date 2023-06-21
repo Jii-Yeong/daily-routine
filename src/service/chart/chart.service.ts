@@ -124,14 +124,13 @@ export const categoryTodoListOptionsService = async (
   const series = [
     {
       type: HIGHCHARTS_TYPE.column,
-      name: "미완료",
-      data: unCheckedList,
-    },
-
-    {
-      type: HIGHCHARTS_TYPE.column,
       name: "완료",
       data: checkedList,
+    },
+    {
+      type: HIGHCHARTS_TYPE.column,
+      name: "미완료",
+      data: unCheckedList,
     },
   ]
 

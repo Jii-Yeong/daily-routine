@@ -7,6 +7,7 @@ import supabaseAdmin from "@/supabase/init"
 import { getRootPage } from "@/utils/page.utils"
 import { useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import "./MyPage.scoped.scss"
 
 export default function MyPage() {
   const navigate = useNavigate()
@@ -20,11 +21,13 @@ export default function MyPage() {
   }, [goRootPageToNotUser])
 
   return (
-    <DefaultLayout sidebarChildren={<MyPageSidebar />}>
+    <DefaultLayout sidebarChildren={<MyPageSidebar />} maxWidth={1200}>
       <div className="main-container">
         <CheckTodoListChart />
         <DateTodoListChart />
-        <CategoryTodoListChart />
+        <div className="category-todo-list-chart-container">
+          <CategoryTodoListChart />
+        </div>
       </div>
     </DefaultLayout>
   )

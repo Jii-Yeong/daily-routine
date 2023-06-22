@@ -1,3 +1,4 @@
+import DefaultHeader from "@/components/header/DefaultHeader/DefaultHeader"
 import { parseDomSizeValue } from "@/utils/string.utils"
 import { ReactNode } from "react"
 import "./DefaultLayout.scoped.scss"
@@ -16,10 +17,13 @@ export default function DefaultLayout({
     maxWidth: parseDomSizeValue(maxWidth),
   }
   return (
-    <div className="default-layout">
-      <div className="default-layout-inner" style={defaultLayoutInnerStyle}>
-        <div className="sidebar-layout">{sidebarChildren}</div>
-        <div className="main-layout">{children}</div>
+    <div className="default-layout-container">
+      <DefaultHeader />
+      <div className="default-layout">
+        <div className="default-layout-inner" style={defaultLayoutInnerStyle}>
+          <div className="sidebar-layout">{sidebarChildren}</div>
+          <div className="main-layout">{children}</div>
+        </div>
       </div>
     </div>
   )

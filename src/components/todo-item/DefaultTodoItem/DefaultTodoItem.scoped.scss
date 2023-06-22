@@ -11,7 +11,8 @@
   }
 
   .default-todo-item-inner {
-    width: 100%;
+    flex: 1;
+
     @include flexRow(flex-start, center);
     .todo-item {
       width: 100%;

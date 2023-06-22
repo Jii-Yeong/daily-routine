@@ -5,6 +5,7 @@
   padding: 8px;
   border-radius: 8px;
   gap: 8px;
+  cursor: pointer;
 
   .drag-indicator-area {
     @include flexRow(center, center);

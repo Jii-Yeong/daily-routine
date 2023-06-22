@@ -13,7 +13,8 @@ import { useRecoilValue } from "recoil"
 
 export const useTodoList = () => {
   const [todoList, setTodoList] = useState<TodoItemModel[]>([])
-  const [dragIndex, setDragIndex] = useState(0)
+  const [dragStartElement, setDragStartElement] =
+    useState<HTMLDivElement | null>()
   const [dragItem, setDragItem] = useState<TodoItemModel>()
   const userData = useRecoilValue(userProfileSelector)
   const userId = userData?.id
@@ -76,13 +77,24 @@ export const useTodoList = () => {
   }
 
   const dragStartTodoItem = (e: DragEvent, item: TodoItemModel) => {
-    const targetIndex = todoList.findIndex((todo) => todo.order === item.order)
-    setDragIndex(targetIndex)
     setDragItem(item)
+
+    const element = e.target as HTMLDivElement
+    setDragStartElement(element)
+
+    setTimeout(() => {
+      element.classList.add("hidden")
+    })
   }
 
   const dragOverTodoItem = (e: DragEvent) => {
     e.preventDefault()
+  }
+
+  const dragEndTodoItem = () => {
+    if (!dragStartElement) return
+    dragStartElement.classList.remove("hidden")
+    dragStartElement.classList.remove("draggable")
   }
 
   const dropTodoItem = async (e: DragEvent, item: TodoItemModel) => {
@@ -98,8 +110,6 @@ export const useTodoList = () => {
     await updateTodoItemService(dragItem.id, toTodoItemReqDto(dragItem))
 
     fetchTodoList()
-
-    // setTodoList(todoList)
   }
 
   useEffect(() => {
@@ -116,5 +126,6 @@ export const useTodoList = () => {
     dragStartTodoItem,
     dragOverTodoItem,
     dropTodoItem,
+    dragEndTodoItem,
   }
 }

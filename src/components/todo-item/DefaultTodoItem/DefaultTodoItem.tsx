@@ -4,7 +4,7 @@ import MuIcon from "@/components/icon/MuIcon.tsx"
 import EditorInputWrapper from "@/components/input/EditorInputWrapper/EditorInputWrapper"
 import TodoInput from "@/components/input/TodoInput/TodoInput.tsx"
 import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
-import { DragEvent, useState } from "react"
+import { useState } from "react"
 import "./DefaultTodoItem.scoped.scss"
 
 type DefaultTodoItemProps = {
@@ -14,10 +14,6 @@ type DefaultTodoItemProps = {
   clickDelete: (id: number) => void
   enterTodoItem?: (text: string, itemId?: TodoItemModel["id"]) => void
   isShowAddButton?: boolean
-  dragStartTodoItem?: (e: DragEvent, item: TodoItemModel) => void
-  dragOverTodoItem?: (e: DragEvent) => void
-  dropTodoItem?: (e: DragEvent, item: TodoItemModel) => void
-  isDraggable?: boolean
 }
 
 export default function DefaultTodoItem({
@@ -27,10 +23,6 @@ export default function DefaultTodoItem({
   editTodoItem,
   enterTodoItem,
   isShowAddButton = true,
-  dragStartTodoItem,
-  dragOverTodoItem,
-  dropTodoItem,
-  isDraggable = true,
 }: DefaultTodoItemProps) {
   const [isChecked, setIsChecked] = useState(item.checked)
   const [isClickEdit, setIsClickEdit] = useState(false)
@@ -73,32 +65,9 @@ export default function DefaultTodoItem({
     setIsClickAdd(false)
   }
 
-  const handleDragStartTodoItem = (e: DragEvent, item: TodoItemModel) => {
-    if (!dragStartTodoItem) return
-    dragStartTodoItem(e, item)
-  }
-
-  const handleDragOverTodoItem = (e: DragEvent) => {
-    if (!dragOverTodoItem) return
-    dragOverTodoItem(e)
-  }
-
-  const handleDropTodoItem = (e: DragEvent, item: TodoItemModel) => {
-    if (!dropTodoItem) return
-    dropTodoItem(e, item)
-  }
   return (
     <>
-      <div
-        className="default-todo-item"
-        onDragStart={(e) => handleDragStartTodoItem(e, item)}
-        onDragOver={handleDragOverTodoItem}
-        onDrop={(e) => handleDropTodoItem(e, item)}
-        draggable={isDraggable}
-      >
-        <div className="drag-indicator-area">
-          {isDraggable && <MuIcon icon="drag_indicator" />}
-        </div>
+      <div className="default-todo-item">
         <div className="default-todo-item-inner">
           {!isClickEdit ? (
             <>

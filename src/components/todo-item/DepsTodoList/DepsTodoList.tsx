@@ -12,6 +12,9 @@ export default function DepsTodoList() {
     clickCheckboxButton,
     clickDeleteButton,
     editTodoItemValue,
+    dragStartTodoItem,
+    dragOverTodoItem,
+    dropTodoItem,
   } = useTodoList()
 
   const [editorValue, setEditorValue] = useState("")
@@ -40,6 +43,7 @@ export default function DepsTodoList() {
                 clickDelete={clickDeleteButton}
                 editTodoItem={editTodoItemValue}
                 isShowAddButton={false}
+                isDraggable={false}
               />
             </div>
           )
@@ -52,6 +56,9 @@ export default function DepsTodoList() {
               clickDelete={clickDeleteButton}
               editTodoItem={editTodoItemValue}
               enterTodoItem={enterTodoItem}
+              dragStartTodoItem={dragStartTodoItem}
+              dragOverTodoItem={dragOverTodoItem}
+              dropTodoItem={dropTodoItem}
             />
             <div className="two-deps-todo-item">{subItem}</div>
           </div>

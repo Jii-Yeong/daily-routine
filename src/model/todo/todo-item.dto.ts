@@ -8,12 +8,13 @@ export type TodoItemDto = {
   created_at: string
   category_id: number
   sub_id: number | null
+  order: number
 }
 
 export type TodoItemReqDto = Partial<
   Pick<
     TodoItemDto,
-    "user_id" | "todo_text" | "checked" | "category_id" | "sub_id"
+    "user_id" | "todo_text" | "checked" | "category_id" | "sub_id" | "order"
   >
 >
 
@@ -24,6 +25,8 @@ export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
     checked: todoItem.checked,
     sub_item: null,
     sub_id: todoItem.sub_id,
+    category_id: todoItem.category_id,
+    order: todoItem.order,
   }
 }
 
@@ -31,5 +34,6 @@ export const toTodoItemReqDto = (todoItem: TodoItemModel): TodoItemReqDto => {
   return {
     todo_text: todoItem.text,
     checked: todoItem.checked,
+    order: todoItem.order,
   }
 }

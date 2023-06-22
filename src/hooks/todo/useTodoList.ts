@@ -1,3 +1,4 @@
+import { toTodoItemReqDto } from "@/model/todo/todo-item.dto"
 import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import {
@@ -6,12 +7,14 @@ import {
   getTodoListService,
   updateTodoItemService,
 } from "@/service/todo/todo-item.service"
-import { useCallback, useEffect, useState } from "react"
+import { DragEvent, useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { useRecoilValue } from "recoil"
 
 export const useTodoList = () => {
   const [todoList, setTodoList] = useState<TodoItemModel[]>([])
+  const [dragIndex, setDragIndex] = useState(0)
+  const [dragItem, setDragItem] = useState<TodoItemModel>()
   const userData = useRecoilValue(userProfileSelector)
   const userId = userData?.id
   const [searchParams] = useSearchParams()
@@ -72,6 +75,33 @@ export const useTodoList = () => {
     await fetchTodoList()
   }
 
+  const dragStartTodoItem = (e: DragEvent, item: TodoItemModel) => {
+    const targetIndex = todoList.findIndex((todo) => todo.order === item.order)
+    setDragIndex(targetIndex)
+    setDragItem(item)
+  }
+
+  const dragOverTodoItem = (e: DragEvent) => {
+    e.preventDefault()
+  }
+
+  const dropTodoItem = async (e: DragEvent, item: TodoItemModel) => {
+    e.preventDefault()
+    if (!dragItem) return
+
+    const copyItem = { ...item }
+
+    item.order = dragItem.order
+    dragItem.order = copyItem.order
+
+    await updateTodoItemService(item.id, toTodoItemReqDto(item))
+    await updateTodoItemService(dragItem.id, toTodoItemReqDto(dragItem))
+
+    fetchTodoList()
+
+    // setTodoList(todoList)
+  }
+
   useEffect(() => {
     fetchTodoList()
   }, [fetchTodoList])
@@ -83,5 +113,8 @@ export const useTodoList = () => {
     clickCheckboxButton,
     clickDeleteButton,
     editTodoItemValue,
+    dragStartTodoItem,
+    dragOverTodoItem,
+    dropTodoItem,
   }
 }

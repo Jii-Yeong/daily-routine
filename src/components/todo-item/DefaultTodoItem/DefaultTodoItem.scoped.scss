@@ -1,28 +1,39 @@
 .default-todo-item {
   width: 100%;
-  @include flexRow(space-between, center);
+  @include flexRow(stretch, center);
   border: 1px solid rgba($gray, 1);
   padding: 8px;
   border-radius: 8px;
+  gap: 8px;
 
-  .todo-item {
+  .drag-indicator-area {
+    @include flexRow(center, center);
+  }
+
+  .default-todo-item-inner {
+    width: 100%;
     @include flexRow(flex-start, center);
-    column-gap: 8px;
+    .todo-item {
+      width: 100%;
+      column-gap: 8px;
+      flex: 1;
+      @include flexRow(flex-start, center);
 
-    .check-box {
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-      border: 1px solid rgba($gray, 1);
-      border-radius: 4px;
-
-      .check-image {
+      .check-box {
         width: 16px;
-      }
-    }
+        height: 16px;
+        cursor: pointer;
+        border: 1px solid rgba($gray, 1);
+        border-radius: 4px;
 
-    .todo-text {
-      font-size: 14px;
+        .check-image {
+          width: 16px;
+        }
+      }
+
+      .todo-text {
+        font-size: 14px;
+      }
     }
   }
 

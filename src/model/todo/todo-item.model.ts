@@ -3,6 +3,7 @@ export type TodoItemModel = {
   text: string
   checked: boolean
   sub_item: TodoItemModel[] | null
-  sub_id: boolean
+  sub_id: number | null
   category_id: number
+  order: number
 }

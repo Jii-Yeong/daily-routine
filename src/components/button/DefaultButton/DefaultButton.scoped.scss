@@ -1,8 +1,8 @@
 .default-button {
   cursor: pointer;
-  border: 1px solid #e9e9ec;
+  border: 1px solid rgba($gray, 1);
   width: fit-content;
-  background-color: #ffffff;
+  background-color: rgba($white, 1);
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;

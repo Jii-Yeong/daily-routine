@@ -1,13 +1,13 @@
 .default-modal-container {
   @include flexCol(center, stretch);
   width: 100%;
-  border: 1px solid #d7d6d6;
+  border: 1px solid rgba($gray, 1);
   padding: 16px;
   max-width: 320px;
   row-gap: 16px;
   border-radius: 16px;
   min-height: 120px;
-  background-color: #ffffff;
+  background-color: rgba($white, 1);
   position: absolute;
 
   .confirm-text {

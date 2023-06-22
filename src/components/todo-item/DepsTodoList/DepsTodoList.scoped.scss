@@ -3,7 +3,7 @@
   @include flexCol(stretch, stretch);
   row-gap: 16px;
   .one-deps-todo-item {
-    border: 1px solid #d7d7d7;
+    border: 1px solid rgba($gray, 1);
     padding: 8px;
     border-radius: 8px;
 

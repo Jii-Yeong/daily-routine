@@ -1,7 +1,7 @@
 .default-todo-item {
   width: 100%;
   @include flexRow(space-between, center);
-  border: 1px solid #e9e9ec;
+  border: 1px solid rgba($gray, 1);
   padding: 8px;
   border-radius: 8px;
 
@@ -13,7 +13,7 @@
       width: 16px;
       height: 16px;
       cursor: pointer;
-      border: 1px solid #e9e9ec;
+      border: 1px solid rgba($gray, 1);
       border-radius: 4px;
 
       .check-image {

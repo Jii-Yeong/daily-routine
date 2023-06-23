@@ -1,5 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout/DefaultLayout.tsx"
-import Loading from "@/components/loading/Loading/Loading.tsx"
+import Loading from "@/components/loading/LoadingSpinner/LoadingSpinner"
 import DefaultSidebar from "@/components/sidebar/DefaultSidebar/DefaultSidebar"
 import TodoDashboard from "@/components/todo-page/TodoDashboard/TodoDashboard"
 import supabaseAdmin from "@/supabase/init"

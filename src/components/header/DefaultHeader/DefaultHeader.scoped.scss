@@ -1,7 +1,7 @@
 .default-header {
   width: 100%;
   height: 45px;
-  border-bottom: 1px solid rgba($gray, 0.5);
+  border-bottom: 1px solid rgba(var(--gray), 0.5);
   @include flexRow(center, center);
   .title {
     font-weight: bold;

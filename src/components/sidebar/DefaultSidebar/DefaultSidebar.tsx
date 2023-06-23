@@ -1,4 +1,4 @@
-import Loading from "@/components/loading/Loading/Loading.tsx"
+import Loading from "@/components/loading/LoadingSpinner/LoadingSpinner"
 import UserProfile from "@/components/profile/UserProfile/UserProfile.tsx"
 import TodoCategoryDashboard from "@/components/todo-page/TodoCategoryDashboard/TodoCategoryDashboard"
 import { Suspense } from "react"

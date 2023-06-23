@@ -1,3 +1,4 @@
+import "@/style/color-set.css"
 import "@/style/material-icon.scss"
 import "@/style/reset.css"
 import React from "react"

@@ -2,9 +2,9 @@
   width: 100%;
   @include flexCol(stretch, stretch);
   row-gap: 16px;
-  background-color: rgba($white, 1);
+  background-color: rgba(var(--white), 1);
   .one-deps-todo-item {
-    border: 1px solid rgba($gray, 1);
+    border: 1px solid rgba(var(--gray), 1);
     padding: 8px;
     border-radius: 8px;
     @include flexRow(stretch, center);

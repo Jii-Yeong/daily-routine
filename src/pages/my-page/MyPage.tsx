@@ -1,5 +1,5 @@
 import DefaultLayout from "@/components/layout/DefaultLayout/DefaultLayout"
-import Loading from "@/components/loading/Loading/Loading"
+import Loading from "@/components/loading/LoadingSpinner/LoadingSpinner"
 import CategoryTodoListChart from "@/components/my-page/CategoryTodoListChart/CategoryTodoListChart"
 import CheckTodoListChart from "@/components/my-page/CheckTodoListChart/CheckTodoListChart"
 import DateTodoListChart from "@/components/my-page/DateTodoListChart/DateTodoListChart"

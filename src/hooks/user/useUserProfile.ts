@@ -53,6 +53,7 @@ export const useUserProfile = () => {
         user_image: String(reader.result),
       })
       refresher()
+      setIsEditImage(false)
     }
     reader.onerror = (error) => {
       console.log(error)

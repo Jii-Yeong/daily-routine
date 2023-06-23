@@ -3,7 +3,7 @@ import MuIcon from "@/components/icon/MuIcon"
 import TodoInput from "@/components/input/TodoInput/TodoInput"
 import { TodoCategoryDto } from "@/model/todo/todo-category.dto"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model"
-import { useState } from "react"
+import { MouseEvent, useState } from "react"
 import "./CategoryListItem.scoped.scss"
 
 type CategoryListItemProps = {
@@ -29,7 +29,8 @@ export default function CategoryListItem({
     setIsEditCategoryName(false)
   }
 
-  const handleClickEditCategoryName = () => {
+  const handleClickEditCategoryName = (e: MouseEvent) => {
+    e.stopPropagation()
     setIsEditCategoryName(true)
   }
 
@@ -47,11 +48,9 @@ export default function CategoryListItem({
         >
           {item.name}
           <div className="control-button">
-            <MuIcon
-              icon="edit"
-              clickIcon={handleClickEditCategoryName}
-              cursor="pointer"
-            />
+            <div className="edit-icon" onClick={handleClickEditCategoryName}>
+              <MuIcon icon="edit" cursor="pointer" />
+            </div>
             <MuIcon
               icon="delete"
               clickIcon={() => clickDeleteButton(item.id)}

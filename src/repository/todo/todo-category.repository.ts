@@ -12,6 +12,7 @@ export const selectTodoCategoryList = async (
     .from(DB_TABLE_NAME.todoCategory)
     .select()
     .eq("user_id", userId)
+    .order("created_at")
     .returns<TodoCategoryDto[]>()
   return data
 }

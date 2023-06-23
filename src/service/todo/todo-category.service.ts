@@ -7,6 +7,7 @@ import {
   insertTodoCategory,
   selectTodoCategory,
   selectTodoCategoryList,
+  updateTodoCategory,
 } from "@/repository/todo/todo-category.repository"
 
 export const getTodoCategoryListService = async (
@@ -21,7 +22,7 @@ export const getTodoCategoryService = async (
   return await selectTodoCategory(Number(categoryId))
 }
 
-export const clickAddTodoCategoryService = async (
+export const selectTodoCategoryService = async (
   category: TodoCategoryReqDto
 ) => {
   await insertTodoCategory(category)
@@ -31,4 +32,11 @@ export const deleteTodoCategoryService = async (
   categoryId: TodoCategoryDto["id"]
 ) => {
   await deleteTodoCategory(categoryId)
+}
+
+export const updateTodoCategoryService = async (
+  categoryId: TodoCategoryDto["id"],
+  category: TodoCategoryReqDto
+) => {
+  await updateTodoCategory(categoryId, category)
 }

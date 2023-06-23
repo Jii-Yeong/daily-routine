@@ -4,11 +4,12 @@ import {
   initTodoCategory,
 } from "@/model/todo/todo-category.model.ts"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
+import { updateTodoCategory } from "@/repository/todo/todo-category.repository"
 import {
-  clickAddTodoCategoryService,
   deleteTodoCategoryService,
   getTodoCategoryListService,
   getTodoCategoryService,
+  selectTodoCategoryService,
 } from "@/service/todo/todo-category.service"
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
@@ -47,12 +48,23 @@ export const useTodoCategory = () => {
       user_id: userId,
       name,
     }
-    await clickAddTodoCategoryService(category)
+    await selectTodoCategoryService(category)
     await fetchTodoCategoryList()
   }
 
   const clickDeleteTodoCategory = async (id: TodoCategoryDto["id"]) => {
     await deleteTodoCategoryService(id)
+    await fetchTodoCategoryList()
+  }
+
+  const clickEditTodoCategoryName = async (
+    id: TodoCategoryDto["id"],
+    name: TodoCategoryDto["name"]
+  ) => {
+    const category = {
+      name,
+    }
+    await updateTodoCategory(id, category)
     await fetchTodoCategoryList()
   }
 
@@ -71,5 +83,6 @@ export const useTodoCategory = () => {
     fetchTodoCategory,
     clickAddTodoCategory,
     clickDeleteTodoCategory,
+    clickEditTodoCategoryName,
   }
 }

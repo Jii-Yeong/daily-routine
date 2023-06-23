@@ -13,3 +13,12 @@
     column-gap: 8px;
   }
 }
+
+.category-edit-area {
+  display: flex;
+  column-gap: 8px;
+
+  .todo-input-wrapper {
+    flex: 1;
+  }
+}

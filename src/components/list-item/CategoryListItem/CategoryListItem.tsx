@@ -1,0 +1,79 @@
+import DefaultButton from "@/components/button/DefaultButton/DefaultButton"
+import MuIcon from "@/components/icon/MuIcon"
+import TodoInput from "@/components/input/TodoInput/TodoInput"
+import { TodoCategoryDto } from "@/model/todo/todo-category.dto"
+import { TodoCategoryModel } from "@/model/todo/todo-category.model"
+import { useState } from "react"
+import "./CategoryListItem.scoped.scss"
+
+type CategoryListItemProps = {
+  item: TodoCategoryModel
+  clickCategory: (id: TodoCategoryModel["id"]) => void
+  clickDeleteButton: (id: TodoCategoryModel["id"]) => void
+  clickEditName: (
+    id: TodoCategoryModel["id"],
+    category: TodoCategoryModel["name"]
+  ) => void
+}
+
+export default function CategoryListItem({
+  item,
+  clickCategory,
+  clickDeleteButton,
+  clickEditName,
+}: CategoryListItemProps) {
+  const [isEditCategoryName, setIsEditCategoryName] = useState(false)
+
+  const handleSetEditCategoryName = (text: TodoCategoryDto["name"]) => {
+    clickEditName(item.id, text)
+    setIsEditCategoryName(false)
+  }
+
+  const handleClickEditCategoryName = () => {
+    setIsEditCategoryName(true)
+  }
+
+  const handleCancelEditCategoryName = () => {
+    setIsEditCategoryName(false)
+  }
+
+  return (
+    <>
+      {!isEditCategoryName ? (
+        <li
+          className="category-list-item"
+          key={item.id}
+          onClick={() => clickCategory(item.id)}
+        >
+          {item.name}
+          <div className="control-button">
+            <MuIcon
+              icon="edit"
+              clickIcon={handleClickEditCategoryName}
+              cursor="pointer"
+            />
+            <MuIcon
+              icon="delete"
+              clickIcon={() => clickDeleteButton(item.id)}
+              cursor="pointer"
+            />
+          </div>
+        </li>
+      ) : (
+        <div className="category-edit-area">
+          <div className="todo-input-wrapper">
+            <TodoInput
+              buttonText="수정"
+              defaultInputValue={item.name}
+              setTodoItemValue={handleSetEditCategoryName}
+            />
+          </div>
+          <DefaultButton
+            text="취소"
+            onClickButton={handleCancelEditCategoryName}
+          />
+        </div>
+      )}
+    </>
+  )
+}

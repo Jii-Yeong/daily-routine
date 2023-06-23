@@ -15,7 +15,7 @@ export default function ConfirmModal() {
             text="확인"
             onClickButton={modal.clickOkButton}
             color="rgba($white, 1)"
-            backgroundColor="rgba($blue, 1);"
+            backgroundColor="rgba($blue, 1)"
           />
           <DefaultButton text="취소" onClickButton={modal.clickCalcenButton} />
         </div>

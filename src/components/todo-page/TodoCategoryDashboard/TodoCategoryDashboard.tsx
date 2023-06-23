@@ -1,5 +1,5 @@
 import CategoryInput from "@/components/input/CategoryInput/CategoryInput.tsx"
-import CategoryListItem from "@/components/list/CategoryListItem/CategoryListItem"
+import CategoryListItem from "@/components/list-item/CategoryListItem/CategoryListItem"
 import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
@@ -10,8 +10,12 @@ import { useRecoilState } from "recoil"
 import "./TodoCategoryDashboard.scoped.scss"
 
 export default function TodoCategoryDashboard() {
-  const { categoryList, clickAddTodoCategory, clickDeleteTodoCategory } =
-    useTodoCategory()
+  const {
+    categoryList,
+    clickAddTodoCategory,
+    clickDeleteTodoCategory,
+    clickEditTodoCategoryName,
+  } = useTodoCategory()
   const { fetchTodoList } = useTodoList()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -55,12 +59,19 @@ export default function TodoCategoryDashboard() {
     setModal((item) => {
       return {
         ...item,
-        text: "정말로 삭제하시겠습니까?",
+        text: "정말로 삭제하시겠습니까? 카테고리 안 투두 리스트가 전부 사라집니다.",
         isOpenModal: true,
         clickOkButton: () => handleDeleteCategory(id),
         clickCalcenButton: handleClickCancelButton,
       }
     })
+  }
+
+  const handleClickEditCategoryName = (
+    id: TodoCategoryModel["id"],
+    name: TodoCategoryModel["name"]
+  ) => {
+    clickEditTodoCategoryName(id, name)
   }
 
   return (
@@ -74,8 +85,9 @@ export default function TodoCategoryDashboard() {
             <CategoryListItem
               key={item.id}
               item={item}
-              clickCategory={() => handleClickCategory(item.id)}
-              clickDeleteButton={() => handleClickDeleteButton(item.id)}
+              clickCategory={handleClickCategory}
+              clickDeleteButton={handleClickDeleteButton}
+              clickEditName={handleClickEditCategoryName}
             />
           )
         })}

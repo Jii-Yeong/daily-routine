@@ -36,3 +36,13 @@ export const deleteTodoCategory = async (id: TodoCategoryDto["id"]) => {
     .eq("id", id)
   if (error) console.log(error)
 }
+
+export const updateTodoCategory = async (
+  id: TodoCategoryDto["id"],
+  category: TodoCategoryReqDto
+) => {
+  await supabaseAdmin
+    .from(DB_TABLE_NAME.todoCategory)
+    .update(category)
+    .eq("id", id)
+}

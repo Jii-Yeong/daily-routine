@@ -9,7 +9,7 @@
     @include flexRow(center, center);
     .default-layout-inner {
       width: 100%;
-      @include flexRow(center, flex-start);
+      @include flexRow(center, stretch);
       column-gap: 16px;
 
       .sidebar-layout {

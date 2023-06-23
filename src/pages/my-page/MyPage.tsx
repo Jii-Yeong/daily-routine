@@ -1,11 +1,12 @@
 import DefaultLayout from "@/components/layout/DefaultLayout/DefaultLayout"
+import Loading from "@/components/loading/Loading/Loading"
 import CategoryTodoListChart from "@/components/my-page/CategoryTodoListChart/CategoryTodoListChart"
 import CheckTodoListChart from "@/components/my-page/CheckTodoListChart/CheckTodoListChart"
 import DateTodoListChart from "@/components/my-page/DateTodoListChart/DateTodoListChart"
 import MyPageSidebar from "@/components/sidebar/MyPageSidebar/MyPageSidebar"
 import supabaseAdmin from "@/supabase/init"
 import { getRootPage } from "@/utils/page.utils"
-import { useCallback, useEffect } from "react"
+import { Suspense, useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "./MyPage.scoped.scss"
 
@@ -21,7 +22,14 @@ export default function MyPage() {
   }, [goRootPageToNotUser])
 
   return (
-    <DefaultLayout sidebarChildren={<MyPageSidebar />} maxWidth={1200}>
+    <DefaultLayout
+      sidebarChildren={
+        <Suspense fallback={<Loading />}>
+          <MyPageSidebar />
+        </Suspense>
+      }
+      maxWidth={1200}
+    >
       <div className="main-container">
         <CheckTodoListChart />
         <DateTodoListChart />

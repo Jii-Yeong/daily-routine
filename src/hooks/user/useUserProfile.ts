@@ -6,16 +6,15 @@ import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil"
 export const useUserProfile = () => {
   const [userName, setUserName] = useState("")
   const [isEditUserName, setIsEditUserName] = useState(false)
-  const [userImage, setUserImage] = useState("")
   const [isEditImage, setIsEditImage] = useState(false)
   const user = useRecoilValue(userProfileSelector)
   const refresher = useRecoilRefresher_UNSTABLE(userProfileSelector)
 
-  const handleClickEditImage = () => {
+  const handleClickEditImageButton = () => {
     setIsEditImage(true)
   }
 
-  const handleClickCancelEditImage = () => {
+  const handleClickCancelEditImageButton = () => {
     setIsEditImage(false)
   }
 
@@ -24,21 +23,22 @@ export const useUserProfile = () => {
     setUserName(element.value)
   }
 
-  const handleClickEditName = () => {
+  const handleClickEditNameButton = () => {
     setIsEditUserName(true)
   }
 
-  const handleClickCancelEditName = () => {
+  const handleClickCancelEditNameButton = () => {
     setIsEditUserName(false)
   }
 
-  const handleClickEditUserName = () => {
+  const handleClickEditUserName = async () => {
     if (!user) return
 
-    updateUserProfileService(user.id, {
+    await updateUserProfileService(user.id, {
       user_name: userName,
     })
     refresher()
+    setIsEditUserName(false)
   }
 
   const handleChangeFileInputValue = (e: ChangeEvent) => {
@@ -57,21 +57,19 @@ export const useUserProfile = () => {
     reader.onerror = (error) => {
       console.log(error)
     }
-    setUserImage(element.value)
   }
 
   return {
     user,
     userName,
-    userImage,
     isEditImage,
     isEditUserName,
-    handleClickEditImage,
-    handleClickCancelEditImage,
+    handleClickEditImageButton,
+    handleClickCancelEditImageButton,
     handleChangeFileInputValue,
     handleChangeUserName,
-    handleClickEditName,
-    handleClickCancelEditName,
+    handleClickEditNameButton,
+    handleClickCancelEditNameButton,
     handleClickEditUserName,
   }
 }

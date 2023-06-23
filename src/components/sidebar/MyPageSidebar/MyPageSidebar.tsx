@@ -13,11 +13,11 @@ export default function MyPageSidebar() {
     isEditUserName,
     userName,
     handleChangeFileInputValue,
-    handleClickCancelEditImage,
-    handleClickEditImage,
+    handleClickCancelEditImageButton,
+    handleClickEditImageButton,
     handleChangeUserName,
-    handleClickCancelEditName,
-    handleClickEditName,
+    handleClickCancelEditNameButton,
+    handleClickEditNameButton,
     handleClickEditUserName,
   } = useUserProfile()
 
@@ -35,41 +35,47 @@ export default function MyPageSidebar() {
         )}
         {isEditImage ? (
           <div className="file-input-area">
-            <FileInput
-              inputValue={userImage}
-              setInputValue={handleChangeFileInputValue}
-            />
+            <FileInput setInputValue={handleChangeFileInputValue} />
             <DefaultButton
               text="취소"
-              onClickButton={handleClickCancelEditImage}
+              onClickButton={handleClickCancelEditImageButton}
             />
           </div>
         ) : (
           <DefaultButton
-            text="유저 이미지 수정하기"
-            onClickButton={handleClickEditImage}
+            text="유저 이미지 수정"
+            onClickButton={handleClickEditImageButton}
           />
         )}
       </div>
       <div className="user-name-area">
         {!isEditUserName ? (
-          <div className="user-name">
-            <p>{user?.user_name}</p>
-            <DefaultButton text="수정" onClickButton={handleClickEditName} />
-          </div>
+          <>
+            <div className="user-name-inner">
+              <p className="user-name">{user?.user_name}</p>
+              <div className="edit-user-name-button">
+                <DefaultButton
+                  text="수정"
+                  onClickButton={handleClickEditNameButton}
+                />
+              </div>
+            </div>
+          </>
         ) : (
           <div className="edit-user-name">
-            <DefaultInput
-              inputValue={userName}
-              changeInput={handleChangeUserName}
-            />
+            <div className="edit-input-area">
+              <DefaultInput
+                inputValue={userName}
+                changeInput={handleChangeUserName}
+              />
+            </div>
             <DefaultButton
               text="완료"
               onClickButton={handleClickEditUserName}
             />
             <DefaultButton
               text="취소"
-              onClickButton={handleClickCancelEditName}
+              onClickButton={handleClickCancelEditNameButton}
             />
           </div>
         )}

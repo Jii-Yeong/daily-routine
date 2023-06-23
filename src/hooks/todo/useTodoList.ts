@@ -118,7 +118,6 @@ export const useTodoList = () => {
     const number = Math.floor(Math.random() * TODO_LIST.length)
     const randomItem = TODO_LIST[number]
     await enterTodoItem(randomItem)
-    await fetchTodoList()
   }
 
   useEffect(() => {

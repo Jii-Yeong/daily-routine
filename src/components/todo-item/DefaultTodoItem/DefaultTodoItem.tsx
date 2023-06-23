@@ -1,8 +1,6 @@
 import checkImage from "@/assets/images/todo-item/check-image.webp"
-import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import MuIcon from "@/components/icon/MuIcon.tsx"
 import EditorInputWrapper from "@/components/input/EditorInputWrapper/EditorInputWrapper"
-import TodoInput from "@/components/input/TodoInput/TodoInput.tsx"
 import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
 import { useState } from "react"
 import "./DefaultTodoItem.scoped.scss"
@@ -28,6 +26,7 @@ export default function DefaultTodoItem({
   const [isClickEdit, setIsClickEdit] = useState(false)
   const [isClickAdd, setIsClickAdd] = useState(false)
   const [editorValue, setEditorValue] = useState("")
+  const [editEditorValue, setEditEditorValue] = useState(item.text)
 
   const handleClickCheckbox = () => {
     setIsChecked(!isChecked)
@@ -42,9 +41,13 @@ export default function DefaultTodoItem({
     setIsClickEdit(!isClickEdit)
   }
 
-  const handleEditValue = (text: string) => {
-    editTodoItem(item.id, text)
+  const handleEditValue = () => {
+    editTodoItem(item.id, editEditorValue)
     setIsClickEdit(false)
+  }
+
+  const handleSetEditorValue = (value: string) => {
+    setEditEditorValue(value)
   }
 
   const handleCancelEdit = () => {
@@ -90,18 +93,13 @@ export default function DefaultTodoItem({
           ) : (
             <div className="todo-item-edit-input">
               <div className="input-area">
-                <TodoInput
-                  setTodoItemValue={handleEditValue}
-                  buttonText="수정"
-                  defaultInputValue={item.text}
-                  buttonFontSize={12}
+                <EditorInputWrapper
+                  editorValue={editEditorValue}
+                  setEditorValue={handleSetEditorValue}
+                  clickCancelButton={handleCancelEdit}
+                  clickSubmitButton={handleEditValue}
                 />
               </div>
-              <DefaultButton
-                text="취소"
-                onClickButton={handleCancelEdit}
-                fontSize={12}
-              />
             </div>
           )}
           {!isClickEdit && (

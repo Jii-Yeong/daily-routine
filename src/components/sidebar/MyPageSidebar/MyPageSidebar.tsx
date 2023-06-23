@@ -9,7 +9,6 @@ export default function MyPageSidebar() {
   const {
     user,
     isEditImage,
-    userImage,
     isEditUserName,
     userName,
     handleChangeFileInputValue,

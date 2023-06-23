@@ -1,3 +1,4 @@
+import { TODO_LIST } from "@/constants/todo-list-constants"
 import { toTodoItemReqDto } from "@/model/todo/todo-item.dto"
 import { TodoItemModel } from "@/model/todo/todo-item.model.ts"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
@@ -113,6 +114,13 @@ export const useTodoList = () => {
     fetchTodoList()
   }
 
+  const clickRandomTodoListButton = async () => {
+    const number = Math.floor(Math.random() * TODO_LIST.length)
+    const randomItem = TODO_LIST[number]
+    await enterTodoItem(randomItem)
+    await fetchTodoList()
+  }
+
   useEffect(() => {
     fetchTodoList()
   }, [fetchTodoList])
@@ -128,5 +136,6 @@ export const useTodoList = () => {
     dragOverTodoItem,
     dropTodoItem,
     dragEndTodoItem,
+    clickRandomTodoListButton,
   }
 }

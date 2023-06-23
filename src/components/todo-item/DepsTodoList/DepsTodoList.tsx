@@ -18,6 +18,7 @@ export default function DepsTodoList() {
     dragOverTodoItem,
     dropTodoItem,
     dragEndTodoItem,
+    clickRandomTodoListButton,
   } = useTodoList()
 
   const [editorValue, setEditorValue] = useState("")
@@ -99,10 +100,17 @@ export default function DepsTodoList() {
           setEditorValue={setEditorValue}
         />
       ) : (
-        <AddButton
-          text="투두리스트 추가"
-          clickAddButton={handleClickAddButton}
-        />
+        <div className="add-todo-list-area">
+          <AddButton
+            text="투두리스트 추가"
+            clickAddButton={handleClickAddButton}
+          />
+          <AddButton
+            text="랜덤 투두리스트 추가"
+            clickAddButton={clickRandomTodoListButton}
+            color="rgb(var(--theme))"
+          />
+        </div>
       )}
     </div>
   )

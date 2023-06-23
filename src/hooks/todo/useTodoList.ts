@@ -45,6 +45,7 @@ export const useTodoList = () => {
       checked,
     }
     await updateTodoItemService(id, todoItem)
+    await fetchTodoList()
   }
 
   const clickDeleteButton = async (id: TodoItemModel["id"]) => {

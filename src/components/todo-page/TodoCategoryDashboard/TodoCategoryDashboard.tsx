@@ -1,10 +1,10 @@
-import MuIcon from "@/components/icon/MuIcon"
 import CategoryInput from "@/components/input/CategoryInput/CategoryInput.tsx"
+import CategoryListItem from "@/components/list/CategoryListItem/CategoryListItem"
 import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { modalState } from "@/recoil/modal/modal"
-import { getRootPage } from "@/utils/page.utils.ts"
+import { getRootPage, getTodoListPage } from "@/utils/page.utils.ts"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import "./TodoCategoryDashboard.scoped.scss"
@@ -28,7 +28,7 @@ export default function TodoCategoryDashboard() {
   }
 
   const handleClickAllCategory = () => {
-    navigate(getRootPage())
+    navigate(getTodoListPage())
   }
 
   const setCloseModal = () => {
@@ -71,18 +71,12 @@ export default function TodoCategoryDashboard() {
         </li>
         {categoryList.map((item) => {
           return (
-            <li
-              className="category-item"
+            <CategoryListItem
               key={item.id}
-              onClick={() => handleClickCategory(item.id)}
-            >
-              {item.name}
-              <MuIcon
-                icon="delete"
-                clickIcon={() => handleClickDeleteButton(item.id)}
-                cursor="pointer"
-              />
-            </li>
+              item={item}
+              clickCategory={() => handleClickCategory(item.id)}
+              clickDeleteButton={() => handleClickDeleteButton(item.id)}
+            />
           )
         })}
       </ul>

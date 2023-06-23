@@ -112,14 +112,14 @@ export default function DefaultTodoItem({
                 />
               )}
               <MuIcon
-                icon="delete"
-                cursor="pointer"
-                clickIcon={handleClickDeleteButton}
-              />
-              <MuIcon
                 icon="edit"
                 cursor="pointer"
                 clickIcon={handleClickEditButton}
+              />
+              <MuIcon
+                icon="delete"
+                cursor="pointer"
+                clickIcon={handleClickDeleteButton}
               />
             </div>
           )}

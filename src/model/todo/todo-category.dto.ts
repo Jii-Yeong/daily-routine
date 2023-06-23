@@ -1,5 +1,5 @@
 export type TodoCategoryDto = {
-  id: number | null
+  id: number
   user_id: string
   name: string
   created_at: string

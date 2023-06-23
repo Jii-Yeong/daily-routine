@@ -4,6 +4,7 @@ import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { modalState } from "@/recoil/modal/modal"
+import { categoryNameState } from "@/recoil/todo/todo-category"
 import { getRootPage, getTodoListPage } from "@/utils/page.utils.ts"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
@@ -22,6 +23,7 @@ export default function TodoCategoryDashboard() {
   const navigate = useNavigate()
 
   const [modal, setModal] = useRecoilState(modalState)
+  const [categoryName, setCategoryName] = useRecoilState(categoryNameState)
 
   const handleCategoryValue = (text: string) => {
     clickAddTodoCategory(text)
@@ -33,6 +35,7 @@ export default function TodoCategoryDashboard() {
 
   const handleClickAllCategory = () => {
     navigate(getTodoListPage())
+    setCategoryName("전체")
   }
 
   const setCloseModal = () => {

@@ -1,13 +1,13 @@
 import DepsTodoList from "@/components/todo-item/DepsTodoList/DepsTodoList"
-import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
+import { categoryNameState } from "@/recoil/todo/todo-category"
+import { useRecoilValue } from "recoil"
 import "./TodoDashboard.scoped.scss"
 
 export default function TodoDashboard() {
-  const { category } = useTodoCategory()
-
+  const categoryName = useRecoilValue(categoryNameState)
   return (
     <div className="todo-dash-board">
-      <p>{category?.name}</p>
+      <p>{categoryName}</p>
       <div className="todo-list-container">
         <DepsTodoList />
       </div>

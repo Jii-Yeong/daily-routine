@@ -3,17 +3,12 @@ import DefaultButton from "@/components/button/DefaultButton/DefaultButton.tsx"
 import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import { singOutForSite } from "@/supabase/auth"
 import { getMyPage, getRootPage } from "@/utils/page.utils"
-import { useCallback, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil"
+import { useRecoilValue } from "recoil"
 import "./UserProfile.scoped.scss"
 
 export default function UserProfile() {
   const userProfile = useRecoilValue(userProfileSelector)
-  const refresher = useRecoilRefresher_UNSTABLE(userProfileSelector)
-  const userProfileRefresher = useCallback(() => {
-    refresher()
-  }, [refresher])
 
   const navigate = useNavigate()
 
@@ -25,10 +20,6 @@ export default function UserProfile() {
     await singOutForSite()
     navigate(getRootPage())
   }
-
-  useEffect(() => {
-    userProfileRefresher()
-  }, [userProfileRefresher])
 
   return (
     <div className="user-profile">

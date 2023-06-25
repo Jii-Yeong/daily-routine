@@ -1,10 +1,12 @@
 import googleLogo from "@/assets/images/logo/google-logo.png"
 import DefaultInput from "@/components/input/DefaultInput/DefaultInput"
 import AuthPanel from "@/components/panel/AuthPanel/AuthPanel"
+import { userProfileSelector } from "@/recoil/user/user-selectors"
 import { signInWithGoogle, signInWithPassword } from "@/supabase/auth"
 import { getSignUpPage, getTodoListPage } from "@/utils/page.utils"
 import { ChangeEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useRecoilRefresher_UNSTABLE } from "recoil"
 import "./LoginPanel.scoped.scss"
 
 export default function LoginPanel() {
@@ -12,6 +14,7 @@ export default function LoginPanel() {
   const [password, setPassword] = useState("")
   const [isWrongLogin, setIsWrongLogin] = useState(false)
   const navigate = useNavigate()
+  const refresher = useRecoilRefresher_UNSTABLE(userProfileSelector)
 
   const handleSetEmail = (e: ChangeEvent) => {
     const element = e.target as HTMLInputElement
@@ -25,6 +28,7 @@ export default function LoginPanel() {
     const signIn = await signInWithPassword(email, password)
     if (!signIn) {
       navigate(getTodoListPage())
+      refresher()
       return
     }
     setIsWrongLogin(true)

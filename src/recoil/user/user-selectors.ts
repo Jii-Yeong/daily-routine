@@ -10,13 +10,15 @@ export const userProfileSelector = selector<UserProfileModel | null>({
   key: "userProfileSelector",
   get: async () => {
     try {
-      const { data } = await supabaseAdmin.auth.getUser()
+      const { data } = await supabaseAdmin.auth.getSession()
 
-      if (!data.user) return null
+      const user = data.session?.user
 
-      const userId = data.user.id
-      const thumbnail = data.user.user_metadata.avatar_url
-      const email = data.user.email
+      if (!user) return null
+
+      const userId = user.id
+      const thumbnail = user.user_metadata.avatar_url
+      const email = user.email
 
       const userData = await getUserProfile(userId)
 

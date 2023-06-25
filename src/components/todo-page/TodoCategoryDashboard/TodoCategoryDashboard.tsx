@@ -1,11 +1,10 @@
 import CategoryInput from "@/components/input/CategoryInput/CategoryInput.tsx"
 import CategoryListItem from "@/components/list-item/CategoryListItem/CategoryListItem"
 import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
-import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { modalState } from "@/recoil/modal/modal"
 import { categoryNameState } from "@/recoil/todo/todo-category"
-import { getRootPage, getTodoListPage } from "@/utils/page.utils.ts"
+import { getTodoListPage } from "@/utils/page.utils.ts"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import "./TodoCategoryDashboard.scoped.scss"
@@ -17,7 +16,6 @@ export default function TodoCategoryDashboard() {
     clickDeleteTodoCategory,
     clickEditTodoCategoryName,
   } = useTodoCategory()
-  const { fetchTodoList } = useTodoList()
 
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -49,8 +47,8 @@ export default function TodoCategoryDashboard() {
 
   const handleDeleteCategory = async (id: TodoCategoryModel["id"]) => {
     await clickDeleteTodoCategory(id)
-    navigate(getRootPage())
-    await fetchTodoList()
+    navigate(getTodoListPage())
+    setCategoryName("전체")
     setCloseModal()
   }
 

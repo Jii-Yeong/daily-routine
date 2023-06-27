@@ -23,8 +23,9 @@ export default function DepsTodoList() {
 
   const [editorValue, setEditorValue] = useState("")
   const [isClickAddButton, setIsClickAddButton] = useState(false)
-  const handleClickSubmitButton = () => {
-    enterTodoItem(editorValue)
+  const handleClickSubmitButton = async () => {
+    await enterTodoItem(editorValue)
+    setIsClickAddButton(false)
   }
 
   const handleClickAddButton = () => {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 
-import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoItem.tsx"
+import DefaultTodoItem from "@/components/list-item/DefaultTodoItem/DefaultTodoItem"
 
 const meta = {
   title: "DefaultTodoItem",

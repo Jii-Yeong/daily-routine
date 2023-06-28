@@ -1,7 +1,7 @@
 import AddButton from "@/components/button/AddButton/AddButton"
 import MuIcon from "@/components/icon/MuIcon"
 import EditorInputWrapper from "@/components/input/EditorInputWrapper/EditorInputWrapper"
-import DefaultTodoItem from "@/components/todo-item/DefaultTodoItem/DefaultTodoItem"
+import DefaultTodoItem from "@/components/list-item/DefaultTodoItem/DefaultTodoItem"
 import { useTodoList } from "@/hooks/todo/useTodoList"
 import { TodoItemModel } from "@/model/todo/todo-item.model"
 import { DragEvent, useState } from "react"

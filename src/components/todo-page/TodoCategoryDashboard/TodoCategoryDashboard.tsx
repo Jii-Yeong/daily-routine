@@ -5,6 +5,7 @@ import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { modalState } from "@/recoil/modal/modal"
 import { categoryNameState } from "@/recoil/todo/todo-category"
 import { getTodoListPage } from "@/utils/page.utils.ts"
+import { MouseEvent } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { useRecoilState } from "recoil"
 import "./TodoCategoryDashboard.scoped.scss"
@@ -56,7 +57,11 @@ export default function TodoCategoryDashboard() {
     setCloseModal()
   }
 
-  const handleClickDeleteButton = async (id: TodoCategoryModel["id"]) => {
+  const handleClickDeleteButton = async (
+    e: MouseEvent,
+    id: TodoCategoryModel["id"]
+  ) => {
+    e.stopPropagation()
     setModal((item) => {
       return {
         ...item,

@@ -9,7 +9,7 @@ import "./CategoryListItem.scoped.scss"
 type CategoryListItemProps = {
   item: TodoCategoryModel
   clickCategory: (id: TodoCategoryModel["id"]) => void
-  clickDeleteButton: (id: TodoCategoryModel["id"]) => void
+  clickDeleteButton: (e: MouseEvent, id: TodoCategoryModel["id"]) => void
   clickEditName: (
     id: TodoCategoryModel["id"],
     category: TodoCategoryModel["name"]
@@ -51,11 +51,12 @@ export default function CategoryListItem({
             <div className="edit-icon" onClick={handleClickEditCategoryName}>
               <MuIcon icon="edit" cursor="pointer" />
             </div>
-            <MuIcon
-              icon="delete"
-              clickIcon={() => clickDeleteButton(item.id)}
-              cursor="pointer"
-            />
+            <div
+              className="delete-icon"
+              onClick={(e: MouseEvent) => clickDeleteButton(e, item.id)}
+            >
+              <MuIcon icon="delete" cursor="pointer" />
+            </div>
           </div>
         </li>
       ) : (

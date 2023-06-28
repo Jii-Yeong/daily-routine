@@ -88,8 +88,6 @@ export default function SignUpPanel() {
     )
       return
 
-    console.log(isWrongEmail)
-
     signUpWithPassword(email, password).then(() => {
       alert(
         "해당 이메일로 회원가입 확인 메일을 보내드렸으니 확인 부탁드립니다."

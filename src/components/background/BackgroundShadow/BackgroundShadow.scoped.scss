@@ -4,4 +4,5 @@
   height: 100vh;
   position: absolute;
   @include flexCol(center, center);
+  z-index: 100;
 }

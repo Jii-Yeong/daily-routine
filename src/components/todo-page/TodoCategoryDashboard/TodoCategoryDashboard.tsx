@@ -1,6 +1,7 @@
 import CategoryInput from "@/components/input/CategoryInput/CategoryInput.tsx"
 import CategoryListItem from "@/components/list-item/CategoryListItem/CategoryListItem"
 import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
+import { useScrollLock } from "@/hooks/utils/useScrollLock"
 import { TodoCategoryModel } from "@/model/todo/todo-category.model.ts"
 import { modalState } from "@/recoil/modal/modal"
 import { categoryNameState } from "@/recoil/todo/todo-category"
@@ -24,6 +25,7 @@ export default function TodoCategoryDashboard() {
 
   const [modal, setModal] = useRecoilState(modalState)
   const [categoryName, setCategoryName] = useRecoilState(categoryNameState)
+  const { setScrollLock, offScrollLock } = useScrollLock()
 
   const handleCategoryValue = (text: string) => {
     clickAddTodoCategory(text)
@@ -52,10 +54,12 @@ export default function TodoCategoryDashboard() {
     navigate(getTodoListPage())
     setCategoryName("전체")
     setCloseModal()
+    offScrollLock()
   }
 
   const handleClickCancelButton = () => {
     setCloseModal()
+    offScrollLock()
   }
 
   const handleClickDeleteButton = async (
@@ -63,6 +67,7 @@ export default function TodoCategoryDashboard() {
     id: TodoCategoryModel["id"]
   ) => {
     e.stopPropagation()
+    setScrollLock()
     setModal((item) => {
       return {
         ...item,

@@ -1,13 +1,11 @@
 import { HIGHCHARTS_TYPE } from "@/constants/chart/chart-type.constants"
-import { TodoItemDto } from "@/model/todo/todo-item.dto"
-import { selectTodoCategoryList } from "@/repository/todo/todo-category.repository"
-import { getTodoList } from "@/repository/todo/todo-item.repository"
+import { TodoCategoryDto } from "@/model/todo/todo-category.dto"
+import { TodoItemModel } from "@/model/todo/todo-item.model"
 import { parseDateToFormat } from "@/utils/date.utils"
 
 export const checkTodoListOptionsService = async (
-  id: TodoItemDto["user_id"]
+  todoList: TodoItemModel[]
 ) => {
-  const todoList = await getTodoList(id)
   const todoListSize = todoList.length
 
   const checkedList = todoList.filter((item) => item.checked)
@@ -39,10 +37,7 @@ export const checkTodoListOptionsService = async (
   }
 }
 
-export const dateTodoListOptionsService = async (
-  id: TodoItemDto["user_id"]
-) => {
-  const todoList = await getTodoList(id)
+export const dateTodoListOptionsService = async (todoList: TodoItemModel[]) => {
   const dateList = todoList.map((item) => parseDateToFormat(item.created_at))
   const deduplicationList = dateList.filter(
     (item, index) => dateList.indexOf(item) === index
@@ -93,17 +88,18 @@ export const dateTodoListOptionsService = async (
 }
 
 export const categoryTodoListOptionsService = async (
-  id: TodoItemDto["user_id"]
+  todoList: TodoItemModel[],
+  categoryList: TodoCategoryDto[]
 ) => {
-  const todoList = await getTodoList(id)
-  const categoryList = await selectTodoCategoryList(id)
-
-  categoryList?.unshift({
-    id: null,
-    created_at: "",
-    name: "전체",
-    user_id: "",
-  })
+  const isAllCategory = categoryList.find((item) => item.id === null)
+  if (!isAllCategory) {
+    categoryList.unshift({
+      id: null,
+      created_at: "",
+      name: "전체",
+      user_id: "",
+    })
+  }
 
   const categoryNameList = categoryList?.map((item) => item.name)
 

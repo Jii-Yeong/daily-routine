@@ -27,6 +27,7 @@ export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
     sub_id: todoItem.sub_id,
     category_id: todoItem.category_id,
     order: todoItem.order,
+    created_at: todoItem.created_at,
   }
 }
 

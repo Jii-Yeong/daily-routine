@@ -6,4 +6,5 @@ export type TodoItemModel = {
   sub_id: number | null
   category_id: number
   order: number
+  created_at: string
 }

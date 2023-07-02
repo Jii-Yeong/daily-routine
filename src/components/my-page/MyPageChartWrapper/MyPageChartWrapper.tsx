@@ -2,20 +2,25 @@ import DefaultInformation from "@/components/information/DefaultInformation/Defa
 import CategoryTodoListChart from "@/components/my-page/CategoryTodoListChart/CategoryTodoListChart"
 import CheckTodoListChart from "@/components/my-page/CheckTodoListChart/CheckTodoListChart"
 import DateTodoListChart from "@/components/my-page/DateTodoListChart/DateTodoListChart"
+import { useTodoCategory } from "@/hooks/todo/useTodoCategory"
 import { useTodoList } from "@/hooks/todo/useTodoList"
 import "./MyPageChartWrapper.scoped.scss"
 
 export default function MyPageChartWrapper() {
   const { todoList } = useTodoList()
+  const { categoryList } = useTodoCategory()
 
   return (
     <>
       {todoList.length > 0 ? (
         <div className="my-page-chart-wrapper-container">
-          <CheckTodoListChart />
-          <DateTodoListChart />
+          <CheckTodoListChart todoList={todoList} categoryList={categoryList} />
+          <DateTodoListChart todoList={todoList} categoryList={categoryList} />
           <div className="category-todo-list-chart-container">
-            <CategoryTodoListChart />
+            <CategoryTodoListChart
+              todoList={todoList}
+              categoryList={categoryList}
+            />
           </div>
         </div>
       ) : (

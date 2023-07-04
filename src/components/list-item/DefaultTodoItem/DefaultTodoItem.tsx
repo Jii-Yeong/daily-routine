@@ -22,15 +22,13 @@ export default function DefaultTodoItem({
   enterTodoItem,
   isShowAddButton = true,
 }: DefaultTodoItemProps) {
-  const [isChecked, setIsChecked] = useState(item.checked)
   const [isClickEdit, setIsClickEdit] = useState(false)
   const [isClickAdd, setIsClickAdd] = useState(false)
   const [editorValue, setEditorValue] = useState("")
   const [editEditorValue, setEditEditorValue] = useState(item.text)
 
   const handleClickCheckbox = () => {
-    setIsChecked(!isChecked)
-    clickCheckbox(item.id, !isChecked)
+    clickCheckbox(item.id, !item.checked)
   }
 
   const handleClickDeleteButton = () => {
@@ -76,7 +74,7 @@ export default function DefaultTodoItem({
             <>
               <div className="todo-item">
                 <div className="check-box" onClick={handleClickCheckbox}>
-                  {isChecked && (
+                  {item.checked && (
                     <img
                       className="check-image"
                       src={checkImage}

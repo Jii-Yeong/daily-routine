@@ -18,6 +18,24 @@ export const getTodoList = async (
   return data || []
 }
 
+export const getTodoItem = async (id: TodoItemReqDto["id"]) => {
+  const { data } = await supabaseAdmin
+    .from("todo_item")
+    .select()
+    .eq("id", id)
+    .single<TodoItemDto>()
+  return data
+}
+
+export const getTodoSubList = async (subId: TodoItemReqDto["sub_id"]) => {
+  const { data } = await supabaseAdmin
+    .from("todo_item")
+    .select()
+    .eq("sub_id", subId)
+    .returns<TodoItemDto[]>()
+  return data || []
+}
+
 export const addTodoItem = async (todoReq: TodoItemReqDto) => {
   await supabaseAdmin.from(DB_TABLE_NAME.todoItem).insert(todoReq)
 }

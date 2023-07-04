@@ -7,7 +7,9 @@ import { TodoItemModel } from "@/model/todo/todo-item.model"
 import {
   addTodoItem,
   deleteTodoItem,
+  getTodoItem,
   getTodoList,
+  getTodoSubList,
   updateTodoItem,
 } from "@/repository/todo/todo-item.repository"
 
@@ -30,6 +32,17 @@ export const getTodoListService = async (
   })
 
   return todoList.filter((item) => !item.sub_id)
+}
+
+export const getTodoListItemService = async (id: TodoItemDto["id"]) => {
+  const data = await getTodoItem(id)
+  if (!data) return
+  return toTodoItemModel(data)
+}
+
+export const getTodoSubListService = async (subId: TodoItemDto["sub_id"]) => {
+  const data = await getTodoSubList(subId)
+  return data.map((item) => toTodoItemModel(item))
 }
 
 export const addTodoListSerivce = async (

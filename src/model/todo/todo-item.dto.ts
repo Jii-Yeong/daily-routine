@@ -11,12 +11,7 @@ export type TodoItemDto = {
   order: number
 }
 
-export type TodoItemReqDto = Partial<
-  Pick<
-    TodoItemDto,
-    "user_id" | "todo_text" | "checked" | "category_id" | "sub_id" | "order"
-  >
->
+export type TodoItemReqDto = Partial<TodoItemDto>
 
 export const toTodoItemModel = (todoItem: TodoItemDto): TodoItemModel => {
   return {

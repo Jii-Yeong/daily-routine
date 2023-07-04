@@ -5,7 +5,9 @@ import { userProfileSelector } from "@/recoil/user/user-selectors.ts"
 import {
   addTodoListSerivce,
   deleteTodoItemService,
+  getTodoListItemService,
   getTodoListService,
+  getTodoSubListService,
   updateTodoItemService,
 } from "@/service/todo/todo-item.service"
 import { DragEvent, useCallback, useEffect, useState } from "react"
@@ -21,6 +23,7 @@ export const useTodoList = () => {
   const userId = userData?.id
   const [searchParams] = useSearchParams()
   const categoryId = searchParams.get("category_id")
+
   const fetchTodoList = useCallback(async () => {
     if (!userId) return
     const data = await getTodoListService(userId, categoryId)
@@ -45,7 +48,34 @@ export const useTodoList = () => {
     const todoItem = {
       checked,
     }
+    const targetUpperItem = todoList.find((item) => item.id === id)
+    const targetItem = await getTodoListItemService(id)
+    const targetSubId = targetItem?.sub_id || null
+    const targetSubItem = targetUpperItem?.sub_item
+
+    if (targetSubItem) {
+      const updateSubItem = targetSubItem.map(async (item) => {
+        await updateTodoItemService(item.id, todoItem)
+      })
+      await Promise.all(updateSubItem)
+    }
+
+    if (targetSubId && !checked) {
+      await updateTodoItemService(targetSubId, {
+        checked: false,
+      })
+    }
+
     await updateTodoItemService(id, todoItem)
+
+    const targetDepsItem = await getTodoSubListService(targetSubId)
+
+    const isAllChecked = targetDepsItem?.every((item) => item.checked)
+    if (isAllChecked && targetSubId)
+      await updateTodoItemService(targetSubId, {
+        checked: true,
+      })
+
     await fetchTodoList()
   }
 

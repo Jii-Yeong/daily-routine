@@ -36,6 +36,12 @@ export const useTodoList = () => {
   ) => {
     if (!userId) return
     await addTodoListSerivce(text, itemId || null, userId, categoryId)
+    if (itemId) {
+      await updateTodoItemService(itemId, {
+        checked: false,
+      })
+    }
+
     await fetchTodoList()
   }
 
@@ -60,32 +66,42 @@ export const useTodoList = () => {
       await Promise.all(updateSubItem)
     }
 
-    if (targetSubId && !checked) {
-      await updateTodoItemService(targetSubId, {
-        checked: false,
-      })
-    }
-
     await updateTodoItemService(id, todoItem)
 
-    const targetDepsItem = await getTodoSubListService(targetSubId)
+    if (targetSubId) {
+      if (!checked)
+        await updateTodoItemService(targetSubId, {
+          checked: false,
+        })
 
-    const isAllChecked = targetDepsItem?.every((item) => item.checked)
-    if (isAllChecked && targetSubId)
-      await updateTodoItemService(targetSubId, {
-        checked: true,
-      })
+      const targetDepsItem = await getTodoSubListService(targetSubId)
+
+      const isAllChecked = targetDepsItem?.every((item) => item.checked)
+      if (isAllChecked)
+        await updateTodoItemService(targetSubId, {
+          checked: true,
+        })
+    }
 
     await fetchTodoList()
   }
 
   const clickDeleteButton = async (id: TodoItemModel["id"]) => {
-    if (!userId) {
-      const filteredTodoList = todoList.filter((item) => item.id !== id)
-      setTodoList(filteredTodoList)
-      return
-    }
+    const targetItem = await getTodoListItemService(id)
     await deleteTodoItemService(id)
+
+    const targetSubId = targetItem?.sub_id || null
+
+    if (targetSubId) {
+      const targetDepsItem = await getTodoSubListService(targetSubId)
+
+      const isAllChecked = targetDepsItem?.every((item) => item.checked)
+      if (isAllChecked)
+        await updateTodoItemService(targetSubId, {
+          checked: true,
+        })
+    }
+
     await fetchTodoList()
   }
 
